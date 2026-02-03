@@ -1,0 +1,219 @@
+# Bare Components
+
+Zero-dependency, framework-agnostic web components for fullstack developers. Use accessible UI primitives as HTML tags — no JavaScript required.
+
+Built for Laravel, Rails, Django, and any backend that renders HTML.
+
+## Installation
+
+```bash
+npm install bare-components
+```
+
+Or use via CDN:
+
+```html
+<script type="module" src="https://unpkg.com/bare-components"></script>
+```
+
+## Quick Start
+
+```html
+<script type="module">
+  import { registerAll } from 'bare-components';
+  registerAll();
+</script>
+
+<wc-select name="color" placeholder="Pick a color" searchable clearable>
+  <wc-option value="red">Red</wc-option>
+  <wc-option value="blue">Blue</wc-option>
+  <wc-option value="green">Green</wc-option>
+</wc-select>
+```
+
+## Components
+
+### Button
+
+Accessible button with keyboard support.
+
+```html
+<wc-button>Click me</wc-button>
+<wc-button disabled>Disabled</wc-button>
+```
+
+### Dialog
+
+Modal dialog with backdrop and focus trapping.
+
+```html
+<wc-dialog>
+  <button slot="trigger">Open Dialog</button>
+  <div slot="content">
+    <p>Dialog content here</p>
+    <wc-dialog-close>Close</wc-dialog-close>
+  </div>
+</wc-dialog>
+```
+
+### Tabs
+
+Accessible tab navigation with keyboard support.
+
+```html
+<wc-tabs value="tab1">
+  <div slot="tabs">
+    <button data-value="tab1">Tab 1</button>
+    <button data-value="tab2">Tab 2</button>
+  </div>
+  <div slot="panels" data-value="tab1">Panel 1 content</div>
+  <div slot="panels" data-value="tab2">Panel 2 content</div>
+</wc-tabs>
+```
+
+### Accordion
+
+Collapsible sections with single or multiple mode.
+
+```html
+<wc-accordion>
+  <wc-accordion-item open>
+    <button slot="trigger">Section 1</button>
+    <div slot="content">Content 1</div>
+  </wc-accordion-item>
+  <wc-accordion-item>
+    <button slot="trigger">Section 2</button>
+    <div slot="content">Content 2</div>
+  </wc-accordion-item>
+</wc-accordion>
+```
+
+### Select
+
+Advanced select with search, multiple selection, remote loading, and create option.
+
+#### Basic
+
+```html
+<wc-select name="framework" placeholder="Choose..." clearable>
+  <wc-option value="react">React</wc-option>
+  <wc-option value="vue">Vue</wc-option>
+  <wc-option value="svelte">Svelte</wc-option>
+</wc-select>
+```
+
+#### Searchable
+
+```html
+<wc-select name="country" searchable clearable>
+  <wc-option value="us">United States</wc-option>
+  <wc-option value="uk">United Kingdom</wc-option>
+</wc-select>
+```
+
+#### Multiple Selection
+
+```html
+<wc-select name="skills" multiple searchable clearable>
+  <wc-option value="js">JavaScript</wc-option>
+  <wc-option value="py">Python</wc-option>
+</wc-select>
+```
+
+#### Create New Options
+
+```html
+<wc-select name="tags" multiple searchable create clearable>
+  <wc-option value="bug">Bug</wc-option>
+  <wc-option value="feature">Feature</wc-option>
+</wc-select>
+```
+
+#### Remote Loading
+
+```html
+<!-- With query parameter -->
+<wc-select 
+  name="user"
+  url="https://api.github.com/search/users"
+  search-param="q"
+  value-field="login"
+  label-field="login"
+  min-chars="2"
+  searchable
+  clearable
+></wc-select>
+
+<!-- With URL template -->
+<wc-select 
+  name="country"
+  url="https://restcountries.com/v3.1/name/{query}?fields=name,cca2"
+  value-field="cca2"
+  label-field="name.common"
+  min-chars="2"
+  searchable
+  clearable
+></wc-select>
+```
+
+#### Select Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `name` | Form field name |
+| `value` | Selected value(s), comma-separated for multiple |
+| `placeholder` | Placeholder text |
+| `disabled` | Disable the select |
+| `multiple` | Allow multiple selections |
+| `searchable` | Enable search/filtering |
+| `clearable` | Show clear button |
+| `create` | Allow creating new options |
+| `url` | Remote URL for loading options |
+| `search-param` | Query parameter name (default: "q") |
+| `value-field` | JSON field for option value (default: "value") |
+| `label-field` | JSON field for option label, supports dot notation (default: "label") |
+| `min-chars` | Minimum characters before search (default: 1) |
+
+## Styling
+
+Components use Shadow DOM but expose parts for styling:
+
+```css
+wc-select::part(control) {
+  border-color: #3b82f6;
+}
+
+wc-select::part(dropdown) {
+  max-height: 300px;
+}
+```
+
+### FOUC Prevention
+
+Add this CSS before your components to prevent flash of unstyled content:
+
+```css
+wc-dialog:not(:defined) [slot="content"],
+wc-tabs:not(:defined) [slot="panels"],
+wc-accordion-item:not(:defined) [slot="content"] {
+  display: none !important;
+}
+```
+
+## Events
+
+| Component | Event | Description |
+|-----------|-------|-------------|
+| `wc-select` | `change` | Fired when selection changes |
+| `wc-select` | `create` | Fired when new option is created |
+| `wc-tabs` | `change` | Fired when tab changes |
+| `wc-dialog` | `open` | Fired when dialog opens |
+| `wc-dialog` | `close` | Fired when dialog closes |
+
+## Browser Support
+
+Works in all modern browsers (Chrome, Firefox, Safari, Edge).
+
+## License
+
+MIT

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WC Primitives Examples</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-slate-50 text-slate-900">
+    <div class="mx-auto flex max-w-3xl flex-col gap-10 p-8">
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Button</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <wc-button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+            Primary Action
+          </wc-button>
+          <wc-button
+            disabled
+            class="inline-flex items-center justify-center rounded-md border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-400"
+          >
+            Disabled
+          </wc-button>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Dialog</h2>
+        <wc-dialog>
+          <wc-dialog-trigger slot="trigger" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+            Open Dialog
+          </wc-dialog-trigger>
+          <div slot="content" class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+            <p class="text-sm text-slate-700">This is the dialog content.</p>
+            <div class="mt-3 flex gap-2">
+              <wc-dialog-close class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+                Close
+              </wc-dialog-close>
+            </div>
+          </div>
+        </wc-dialog>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Tabs</h2>
+        <wc-tabs value="overview">
+          <div slot="tabs" class="flex flex-wrap gap-2">
+            <button data-value="overview" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Overview
+            </button>
+            <button data-value="details" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Details
+            </button>
+            <button data-value="metrics" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Metrics
+            </button>
+          </div>
+          <div data-value="overview" slot="panels" class="rounded-md border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-sm">
+            Overview content
+          </div>
+          <div data-value="details" slot="panels" class="rounded-md border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-sm">
+            Details content
+          </div>
+          <div data-value="metrics" slot="panels" class="rounded-md border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-sm">
+            Metrics content
+          </div>
+        </wc-tabs>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Accordion</h2>
+        <wc-accordion class="gap-3">
+          <wc-accordion-item open class="rounded-md border border-slate-200 bg-white p-3 shadow-sm">
+            <wc-accordion-trigger slot="trigger" class="inline-flex items-center justify-between text-sm font-medium text-slate-800 w-full cursor-pointer">
+              First section
+            </wc-accordion-trigger>
+            <div slot="content" class="mt-2 text-sm text-slate-700">First panel content.</div>
+          </wc-accordion-item>
+          <wc-accordion-item class="rounded-md border border-slate-200 bg-white p-3 shadow-sm">
+            <wc-accordion-trigger slot="trigger" class="inline-flex items-center justify-between text-sm font-medium text-slate-800 w-full cursor-pointer">
+              Second section
+            </wc-accordion-trigger>
+            <div slot="content" class="mt-2 text-sm text-slate-700">Second panel content.</div>
+          </wc-accordion-item>
+        </wc-accordion>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Select</h2>
+        <div class="flex flex-col gap-6">
+          <div>
+            <p class="text-sm text-slate-500 mb-2">Basic Select</p>
+            <wc-select name="framework" placeholder="Choose a framework" clearable class="w-full max-w-sm">
+              <wc-option value="react">React</wc-option>
+              <wc-option value="vue">Vue</wc-option>
+              <wc-option value="svelte">Svelte</wc-option>
+              <wc-option value="solid">Solid</wc-option>
+              <wc-option value="lit">Lit</wc-option>
+            </wc-select>
+          </div>
+          
+          <div>
+            <p class="text-sm text-slate-500 mb-2">Searchable Select</p>
+            <wc-select name="country" placeholder="Search for a country..." searchable clearable class="w-full max-w-sm">
+              <wc-option value="us">United States</wc-option>
+              <wc-option value="uk">United Kingdom</wc-option>
+              <wc-option value="de">Germany</wc-option>
+              <wc-option value="fr">France</wc-option>
+              <wc-option value="jp">Japan</wc-option>
+              <wc-option value="cn">China</wc-option>
+              <wc-option value="in">India</wc-option>
+              <wc-option value="br">Brazil</wc-option>
+              <wc-option value="ca">Canada</wc-option>
+              <wc-option value="au">Australia</wc-option>
+            </wc-select>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500 mb-2">Multiple Selection with Tags</p>
+            <wc-select name="skills" placeholder="Select skills..." multiple searchable clearable class="w-full max-w-sm">
+              <wc-option value="js">JavaScript</wc-option>
+              <wc-option value="ts">TypeScript</wc-option>
+              <wc-option value="py">Python</wc-option>
+              <wc-option value="rb">Ruby</wc-option>
+              <wc-option value="go">Go</wc-option>
+              <wc-option value="rs">Rust</wc-option>
+              <wc-option value="php">PHP</wc-option>
+              <wc-option value="java">Java</wc-option>
+            </wc-select>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500 mb-2">Create New Options</p>
+            <wc-select name="tags" placeholder="Add tags..." multiple searchable create clearable class="w-full max-w-sm">
+              <wc-option value="bug">Bug</wc-option>
+              <wc-option value="feature">Feature</wc-option>
+              <wc-option value="docs">Documentation</wc-option>
+            </wc-select>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500 mb-2">Disabled State</p>
+            <wc-select name="disabled" placeholder="This is disabled" disabled class="w-full max-w-sm">
+              <wc-option value="1">Option 1</wc-option>
+              <wc-option value="2">Option 2</wc-option>
+            </wc-select>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500 mb-2">Load from URL (GitHub Users API)</p>
+            <wc-select 
+              name="github_user" 
+              placeholder="Search GitHub users..." 
+              url="https://api.github.com/search/users"
+              search-param="q"
+              value-field="login"
+              label-field="login"
+              min-chars="2"
+              searchable 
+              clearable 
+              class="w-full max-w-sm"
+            ></wc-select>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500 mb-2">Load from URL - Multiple (REST Countries API)</p>
+            <wc-select 
+              name="countries" 
+              placeholder="Search countries..." 
+              url="https://restcountries.com/v3.1/name/{query}?fields=name,cca2"
+              value-field="cca2"
+              label-field="name.common"
+              min-chars="2"
+              searchable
+              multiple
+              clearable 
+              class="w-full max-w-sm"
+            ></wc-select>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module">
+      import { registerAll } from "../src/index.js";
+
+      registerAll();
+    </script>
+  </body>
+</html>
