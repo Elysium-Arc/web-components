@@ -253,6 +253,74 @@ wc-toast::part(actions) { }
 wc-toast::part(close) { }
 ```
 
+### Side Panel
+
+A sliding drawer panel from either side of the screen.
+
+```html
+<!-- Trigger button -->
+<button onclick="document.getElementById('my-panel').show()">Open Panel</button>
+
+<!-- Side Panel -->
+<wc-sidepanel id="my-panel" position="right" overlay>
+  <span slot="title">Panel Title</span>
+  
+  <!-- Body content (default slot) -->
+  <p>Panel content goes here...</p>
+  
+  <!-- Footer actions -->
+  <div slot="footer">
+    <button data-close>Cancel</button>
+    <button>Save</button>
+  </div>
+</wc-sidepanel>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `open` | Panel is open |
+| `position` | `left` or `right` (default: `right`) |
+| `overlay` | Show backdrop overlay |
+
+#### Methods
+
+- `show()` - Open the panel
+- `close()` - Close the panel  
+- `toggle()` - Toggle open state
+
+#### Events
+
+- `open` - Fired when panel opens
+- `close` - Fired when panel closes
+
+#### Slots
+
+- Default slot - Panel body content
+- `title` - Panel title
+- `footer` - Footer content (buttons, etc.)
+
+#### Styling Parts
+
+```css
+wc-sidepanel::part(overlay) { }
+wc-sidepanel::part(panel) { }
+wc-sidepanel::part(header) { }
+wc-sidepanel::part(title) { }
+wc-sidepanel::part(close) { }
+wc-sidepanel::part(body) { }
+wc-sidepanel::part(footer) { }
+```
+
+#### Custom Width
+
+```css
+wc-sidepanel {
+  --wc-sidepanel-width: 400px;
+}
+```
+
 ## Styling
 
 Components use Shadow DOM but expose parts for styling:
