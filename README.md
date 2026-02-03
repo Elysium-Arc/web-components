@@ -321,6 +321,187 @@ wc-sidepanel {
 }
 ```
 
+### Dropdown Menu
+
+Accessible dropdown menu with keyboard navigation.
+
+```html
+<wc-dropdown position="bottom-start">
+  <button slot="trigger">Options ▾</button>
+  <button slot="item">Edit</button>
+  <button slot="item">Duplicate</button>
+  <div slot="divider"></div>
+  <button slot="item">Delete</button>
+</wc-dropdown>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `open` | Dropdown is open |
+| `position` | `bottom-start`, `bottom-end`, `top-start`, `top-end` |
+
+### Tooltip
+
+Simple tooltip on hover/focus.
+
+```html
+<wc-tooltip position="top">
+  <button>Hover me</button>
+  <span slot="content">Tooltip text</span>
+</wc-tooltip>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `position` | `top`, `bottom`, `left`, `right` |
+| `delay` | Delay before showing (default: 200ms) |
+
+### Switch / Toggle
+
+Accessible toggle switch for boolean values.
+
+```html
+<wc-switch>Enable notifications</wc-switch>
+<wc-switch checked>Dark mode</wc-switch>
+<wc-switch disabled>Disabled</wc-switch>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `checked` | Switch is on |
+| `disabled` | Disabled state |
+| `name` | Form field name |
+| `value` | Value when checked |
+
+### Progress
+
+Progress bar with variants.
+
+```html
+<wc-progress value="60" max="100">Loading...</wc-progress>
+<wc-progress value="80" variant="success">Complete</wc-progress>
+<wc-progress indeterminate>Processing...</wc-progress>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `value` | Current value |
+| `max` | Maximum value (default: 100) |
+| `indeterminate` | Show indeterminate animation |
+| `variant` | `success`, `warning`, `error` |
+| `size` | `sm`, `lg` |
+
+### Skeleton Loader
+
+Placeholder loading states.
+
+```html
+<wc-skeleton variant="text" width="60%"></wc-skeleton>
+<wc-skeleton variant="circle"></wc-skeleton>
+<wc-skeleton variant="rect" height="120px"></wc-skeleton>
+<wc-skeleton variant="avatar"></wc-skeleton>
+<wc-skeleton variant="button"></wc-skeleton>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `variant` | `text`, `rect`, `circle`, `avatar`, `button`, `card` |
+| `width` | Custom width |
+| `height` | Custom height |
+| `animation` | `shimmer` (default), `pulse`, `none` |
+
+### Badge
+
+Status indicators and labels.
+
+```html
+<wc-badge>Default</wc-badge>
+<wc-badge variant="primary">Primary</wc-badge>
+<wc-badge variant="success">Success</wc-badge>
+<wc-badge variant="error">Error</wc-badge>
+<wc-badge variant="outline">Outline</wc-badge>
+<wc-badge dot variant="success"></wc-badge> Online
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `variant` | `default`, `primary`, `secondary`, `success`, `warning`, `error`, `info`, `outline`, `outline-primary`, `outline-success`, `outline-error` |
+| `size` | `sm`, `lg` |
+| `dot` | Show as dot indicator |
+
+### Alert
+
+Informational messages with icons.
+
+```html
+<wc-alert variant="info">
+  <span slot="title">Information</span>
+  This is an informational message.
+</wc-alert>
+
+<wc-alert variant="error" dismissible>
+  <span slot="title">Error</span>
+  Something went wrong.
+</wc-alert>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `variant` | `info`, `success`, `warning`, `error` |
+| `dismissible` | Show close button |
+
+### Avatar
+
+User avatars with fallback support.
+
+```html
+<wc-avatar src="photo.jpg" alt="John Doe"></wc-avatar>
+<wc-avatar fallback="John Doe"></wc-avatar>
+<wc-avatar size="lg"></wc-avatar>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `src` | Image URL |
+| `alt` | Alt text |
+| `fallback` | Name to generate initials from |
+| `size` | `xs`, `sm`, `lg`, `xl`, `2xl` |
+
+### Spinner
+
+Loading indicators.
+
+```html
+<wc-spinner></wc-spinner>
+<wc-spinner size="lg"></wc-spinner>
+<wc-spinner variant="success"></wc-spinner>
+<wc-spinner overlay></wc-spinner>
+```
+
+#### Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `size` | `xs`, `sm`, `lg`, `xl` |
+| `variant` | `primary`, `secondary`, `success`, `error`, `white` |
+| `overlay` | Full-screen overlay mode |
+
 ## Styling
 
 Components use Shadow DOM but expose parts for styling:
@@ -357,6 +538,9 @@ wc-accordion-item:not(:defined) [slot="content"] {
 | `wc-dialog` | `open` | Fired when dialog opens |
 | `wc-dialog` | `close` | Fired when dialog closes |
 | `wc-toast` | `dismiss` | Fired when toast is dismissed |
+| `wc-switch` | `change` | Fired when toggled |
+| `wc-dropdown` | `select` | Fired when item is selected |
+| `wc-alert` | `dismiss` | Fired when dismissed |
 
 ## Browser Support
 

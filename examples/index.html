@@ -229,6 +229,175 @@
           </button>
         </div>
       </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Dropdown Menu</h2>
+        <div class="flex flex-wrap gap-3">
+          <wc-dropdown position="bottom-start">
+            <button slot="trigger" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Options ▾
+            </button>
+            <button slot="item">Edit</button>
+            <button slot="item">Duplicate</button>
+            <div slot="divider"></div>
+            <button slot="item">Archive</button>
+            <button slot="item" disabled>Delete</button>
+          </wc-dropdown>
+
+          <wc-dropdown position="bottom-end">
+            <button slot="trigger" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Account ▾
+            </button>
+            <a slot="item" href="#">Profile</a>
+            <a slot="item" href="#">Settings</a>
+            <div slot="divider"></div>
+            <button slot="item">Sign Out</button>
+          </wc-dropdown>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Tooltip</h2>
+        <div class="flex flex-wrap gap-4">
+          <wc-tooltip position="top">
+            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Hover me (top)
+            </button>
+            <span slot="content">Tooltip on top</span>
+          </wc-tooltip>
+
+          <wc-tooltip position="bottom">
+            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Hover me (bottom)
+            </button>
+            <span slot="content">Tooltip on bottom</span>
+          </wc-tooltip>
+
+          <wc-tooltip position="left">
+            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Hover me (left)
+            </button>
+            <span slot="content">Tooltip on left</span>
+          </wc-tooltip>
+
+          <wc-tooltip position="right">
+            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+              Hover me (right)
+            </button>
+            <span slot="content">Tooltip on right</span>
+          </wc-tooltip>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Switch / Toggle</h2>
+        <div class="flex flex-col gap-3">
+          <wc-switch>Enable notifications</wc-switch>
+          <wc-switch checked>Dark mode</wc-switch>
+          <wc-switch disabled>Disabled option</wc-switch>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Progress</h2>
+        <div class="flex flex-col gap-4">
+          <wc-progress value="25" max="100">Uploading...</wc-progress>
+          <wc-progress value="60" max="100" variant="success">Completed</wc-progress>
+          <wc-progress value="85" max="100" variant="warning">Almost there</wc-progress>
+          <wc-progress indeterminate>Loading...</wc-progress>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Skeleton Loaders</h2>
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <wc-skeleton variant="avatar"></wc-skeleton>
+            <div class="flex-1 space-y-2">
+              <wc-skeleton variant="text" width="60%"></wc-skeleton>
+              <wc-skeleton variant="text" width="40%"></wc-skeleton>
+            </div>
+          </div>
+          <wc-skeleton variant="rect" height="120px"></wc-skeleton>
+          <div class="flex gap-2">
+            <wc-skeleton variant="button"></wc-skeleton>
+            <wc-skeleton variant="button"></wc-skeleton>
+          </div>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Badges</h2>
+        <div class="flex flex-wrap gap-2">
+          <wc-badge>Default</wc-badge>
+          <wc-badge variant="primary">Primary</wc-badge>
+          <wc-badge variant="secondary">Secondary</wc-badge>
+          <wc-badge variant="success">Success</wc-badge>
+          <wc-badge variant="warning">Warning</wc-badge>
+          <wc-badge variant="error">Error</wc-badge>
+          <wc-badge variant="info">Info</wc-badge>
+          <wc-badge variant="outline">Outline</wc-badge>
+          <wc-badge variant="outline-primary">Outline Primary</wc-badge>
+        </div>
+        <div class="flex flex-wrap gap-2 items-center">
+          <span>Status:</span>
+          <wc-badge variant="success" dot></wc-badge>
+          <span class="text-sm text-slate-600">Online</span>
+          <wc-badge variant="error" dot></wc-badge>
+          <span class="text-sm text-slate-600">Offline</span>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Alerts</h2>
+        <div class="flex flex-col gap-3">
+          <wc-alert variant="info">
+            <span slot="title">Information</span>
+            This is an informational message.
+          </wc-alert>
+          <wc-alert variant="success">
+            <span slot="title">Success</span>
+            Your changes have been saved.
+          </wc-alert>
+          <wc-alert variant="warning" dismissible>
+            <span slot="title">Warning</span>
+            Your session will expire soon.
+          </wc-alert>
+          <wc-alert variant="error" dismissible>
+            <span slot="title">Error</span>
+            Failed to save changes. Please try again.
+          </wc-alert>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Avatars</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <wc-avatar src="https://i.pravatar.cc/100?u=1" alt="John Doe" size="xs"></wc-avatar>
+          <wc-avatar src="https://i.pravatar.cc/100?u=2" alt="Jane Smith" size="sm"></wc-avatar>
+          <wc-avatar src="https://i.pravatar.cc/100?u=3" alt="Bob Wilson"></wc-avatar>
+          <wc-avatar src="https://i.pravatar.cc/100?u=4" alt="Alice Brown" size="lg"></wc-avatar>
+          <wc-avatar src="https://i.pravatar.cc/100?u=5" alt="Charlie Green" size="xl"></wc-avatar>
+          <wc-avatar fallback="John Doe" size="lg"></wc-avatar>
+          <wc-avatar size="lg"></wc-avatar>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Spinners</h2>
+        <div class="flex flex-wrap items-center gap-4">
+          <wc-spinner size="xs"></wc-spinner>
+          <wc-spinner size="sm"></wc-spinner>
+          <wc-spinner></wc-spinner>
+          <wc-spinner size="lg"></wc-spinner>
+          <wc-spinner size="xl"></wc-spinner>
+          <wc-spinner variant="success"></wc-spinner>
+          <wc-spinner variant="error"></wc-spinner>
+          <div class="inline-flex items-center justify-center rounded-md bg-slate-900 px-4 py-2">
+            <wc-spinner variant="white" size="sm"></wc-spinner>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- Side Panels -->

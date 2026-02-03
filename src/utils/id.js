@@ -5,7 +5,13 @@ export function ensureId(element, prefix) {
     return element.id;
   }
   idCounter += 1;
-  const id = `${prefix}-${idCounter}`;
+  const id = prefix + '-' + idCounter;
   element.id = id;
   return id;
+}
+
+export function generateId(prefix) {
+  if (!prefix) prefix = 'id';
+  idCounter += 1;
+  return prefix + '-' + idCounter;
 }
