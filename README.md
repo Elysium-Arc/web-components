@@ -113,6 +113,8 @@ Advanced select with search, multiple selection, remote loading, and create opti
 
 #### Multiple Selection
 
+Includes "Select All / Deselect All" button and selection count.
+
 ```html
 <wc-select name="skills" multiple searchable clearable>
   <wc-option value="js">JavaScript</wc-option>

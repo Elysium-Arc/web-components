@@ -295,6 +295,35 @@ export class WcSelect extends HTMLElement {
           content: '+ Create ';
         }
         
+        .dropdown-actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.5rem 0.75rem;
+          border-bottom: 1px solid #e2e8f0;
+          font-size: 0.75rem;
+        }
+        
+        .select-all-btn {
+          padding: 0.25rem 0.5rem;
+          border: none;
+          background: #f1f5f9;
+          color: #475569;
+          font-size: 0.75rem;
+          border-radius: 0.25rem;
+          cursor: pointer;
+          transition: background 0.1s, color 0.1s;
+        }
+        
+        .select-all-btn:hover {
+          background: #e2e8f0;
+          color: #1e293b;
+        }
+        
+        .selection-count {
+          color: #64748b;
+        }
+        
         .empty-state {
           padding: 1rem;
           text-align: center;
@@ -583,6 +612,29 @@ export class WcSelect extends HTMLElement {
       return;
     }
     
+    if (this.multiple && options.length > 0) {
+      const selectableOptions = options.filter(o => !o.disabled);
+      const allSelected = selectableOptions.length > 0 && selectableOptions.every(o => selected.includes(o.value));
+      
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'dropdown-actions';
+      actionsDiv.innerHTML = `
+        <span class="selection-count">${selected.length} selected</span>
+        <button type="button" class="select-all-btn">${allSelected ? 'Deselect All' : 'Select All'}</button>
+      `;
+      
+      actionsDiv.querySelector('.select-all-btn').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        if (allSelected) {
+          this._deselectAll(selectableOptions);
+        } else {
+          this._selectAll(selectableOptions);
+        }
+      });
+      
+      this._dropdown.appendChild(actionsDiv);
+    }
+    
     let optionIndex = 0;
     
     options.forEach((opt) => {
@@ -710,6 +762,22 @@ export class WcSelect extends HTMLElement {
     this.value = current.join(',');
     this.dispatchEvent(new Event('change', { bubbles: true }));
     this._input.focus();
+  }
+
+  _selectAll(options) {
+    const current = new Set(this.selectedValues);
+    options.forEach(o => current.add(o.value));
+    this.value = [...current].join(',');
+    this._render();
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  _deselectAll(options) {
+    const toRemove = new Set(options.map(o => o.value));
+    const remaining = this.selectedValues.filter(v => !toRemove.has(v));
+    this.value = remaining.join(',');
+    this._render();
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   _createOption(label) {
