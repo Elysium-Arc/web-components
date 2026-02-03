@@ -6,17 +6,70 @@ Built for Laravel, Rails, Django, and any backend that renders HTML.
 
 ## Installation
 
+### npm / yarn / pnpm
+
 ```bash
 npm install bare-components
+# or
+yarn add bare-components
+# or
+pnpm add bare-components
 ```
 
-Or use via CDN:
+### CDN
+
+Use directly via CDN without any build step:
 
 ```html
+<!-- ESM (recommended) -->
 <script type="module" src="https://unpkg.com/bare-components"></script>
+
+<!-- Or use jsDelivr -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/bare-components"></script>
+
+<!-- IIFE for non-module scripts -->
+<script src="https://unpkg.com/bare-components/dist/bare-components.iife.min.js"></script>
+<script>
+  BareComponents.registerAll();
+</script>
 ```
 
 ## Quick Start
+
+### ES Modules (Recommended)
+
+```html
+<script type="module">
+  import { registerAll } from 'bare-components';
+  registerAll();
+</script>
+```
+
+### Import Individual Components
+
+```javascript
+import { defineWcDialog, defineWcSelect } from 'bare-components';
+
+// Register only the components you need
+defineWcDialog();
+defineWcSelect();
+```
+
+### CommonJS
+
+```javascript
+const { registerAll } = require('bare-components');
+registerAll();
+```
+
+### Direct File Import
+
+```javascript
+// Import specific component files
+import { WcDialog, defineWcDialog } from 'bare-components/components/dialog.js';
+```
+
+## Usage Example
 
 ```html
 <script type="module">

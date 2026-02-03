@@ -1,0 +1,60 @@
+{
+  "name": "bare-components",
+  "version": "1.0.0",
+  "description": "Zero-dependency, framework-agnostic web components for fullstack developers",
+  "type": "module",
+  "main": "dist/bare-components.js",
+  "module": "dist/bare-components.js",
+  "types": "dist/bare-components.d.ts",
+  "unpkg": "dist/bare-components.min.js",
+  "jsdelivr": "dist/bare-components.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/bare-components.js",
+      "require": "./dist/bare-components.cjs"
+    },
+    "./components/*": "./src/components/*"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "python3 -m http.server 8000",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "web-components",
+    "custom-elements",
+    "ui-components",
+    "dialog",
+    "tabs",
+    "select",
+    "accordion",
+    "toast",
+    "dropdown",
+    "tooltip",
+    "switch",
+    "progress",
+    "skeleton",
+    "badge",
+    "alert",
+    "avatar",
+    "spinner",
+    "sidepanel",
+    "button",
+    "accessible",
+    "a11y",
+    "framework-agnostic",
+    "zero-dependency",
+    "laravel",
+    "rails",
+    "django"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.20.0"
+  }
+}

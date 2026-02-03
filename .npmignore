@@ -1,0 +1,13 @@
+# Source files not needed in package
+examples/
+scripts/
+instructions.md
+
+# Dev files
+.gitignore
+.editorconfig
+
+# Test files
+*.test.js
+*.spec.js
+__tests__/
