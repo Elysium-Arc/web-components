@@ -201,15 +201,15 @@
               <div class="p-6 bg-slate-50">
                 <wc-tabs value="account" class="w-full">
                   <div slot="tabs" class="flex border-b border-slate-200 mb-4">
-                    <wb-button data-value="account" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                    <button data-value="account" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
                       Account
-                    </wb-button>
-                    <wb-button data-value="password" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                    </button>
+                    <button data-value="password" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
                       Password
-                    </wb-button>
-                    <wb-button data-value="notifications" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                    </button>
+                    <button data-value="notifications" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
                       Notifications
-                    </wb-button>
+                    </button>
                   </div>
                   <div data-value="account" slot="panels" class="p-4 bg-white rounded-lg border border-slate-200">
                     <h4 class="font-medium mb-2">Account Settings</h4>
@@ -228,8 +228,8 @@
               <div class="border-t border-slate-200 p-4">
                 <pre class="code-block">&lt;wc-tabs value="account"&gt;
   &lt;div slot="tabs"&gt;
-    &lt;wb-button data-value="account"&gt;Account&lt;/wb-button&gt;
-    &lt;wb-button data-value="password"&gt;Password&lt;/wb-button&gt;
+    &lt;button data-value="account"&gt;Account&lt;/button&gt;
+    &lt;button data-value="password"&gt;Password&lt;/button&gt;
   &lt;/div&gt;
   &lt;div data-value="account" slot="panels"&gt;...&lt;/div&gt;
   &lt;div data-value="password" slot="panels"&gt;...&lt;/div&gt;

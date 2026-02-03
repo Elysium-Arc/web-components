@@ -81,15 +81,14 @@ export class WcTabs extends HTMLElement {
     this._teardown();
     this._tabList = this.querySelector('[slot="tabs"]');
     this._tabs = Array.from(this.querySelectorAll('[role="tab"]'));
-    this._panels = Array.from(this.querySelectorAll('[slot="panels"] > *, [slot="panels"][role="tabpanel"]'));
     
+    // Fallback: find tabs by data-value within tab list
     if (this._tabs.length === 0 && this._tabList) {
       this._tabs = Array.from(this._tabList.querySelectorAll('[data-value]'));
     }
     
-    if (this._panels.length === 0) {
-      this._panels = Array.from(this.querySelectorAll('[data-value][slot="panels"]'));
-    }
+    // Find panels - elements with slot="panels" and data-value
+    this._panels = Array.from(this.querySelectorAll('[slot="panels"][data-value]'));
 
     if (this._tabList) {
       if (!this._tabList.hasAttribute('role')) {
@@ -122,7 +121,7 @@ export class WcTabs extends HTMLElement {
       if (!value) {
         panel.setAttribute('data-value', String(index));
       }
-      panel.style.display = 'none';
+      panel.style.setProperty('display', 'none', 'important');
       ensureId(panel, 'wc-tabpanel');
     });
 
@@ -183,7 +182,11 @@ export class WcTabs extends HTMLElement {
     this._panels.forEach((panel) => {
       const panelValue = panel.getAttribute('value') || panel.getAttribute('data-value');
       const isSelected = panelValue === value;
-      panel.style.display = isSelected ? '' : 'none';
+      if (isSelected) {
+        panel.style.removeProperty('display');
+      } else {
+        panel.style.setProperty('display', 'none', 'important');
+      }
       panel.setAttribute(TAB_STATE_ATTR, isSelected ? 'active' : 'inactive');
     });
   }
