@@ -3,436 +3,869 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>WC Primitives Examples</title>
+    <title>Bare Components - Zero-dependency Web Components</title>
     <link rel="stylesheet" href="./styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      code, pre { font-family: 'JetBrains Mono', monospace; }
+      .code-block {
+        background: #1e293b;
+        color: #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        font-size: 0.8125rem;
+        overflow-x: auto;
+      }
+      .nav-link {
+        transition: all 0.15s;
+      }
+      .nav-link:hover {
+        color: #3b82f6;
+        padding-left: 0.5rem;
+      }
+      .nav-link.active {
+        color: #3b82f6;
+        font-weight: 500;
+        border-left: 2px solid #3b82f6;
+        padding-left: 0.75rem;
+        margin-left: -2px;
+      }
+      .component-section {
+        scroll-margin-top: 2rem;
+      }
+    </style>
   </head>
-  <body class="min-h-screen bg-slate-50 text-slate-900">
-    <div class="mx-auto flex max-w-3xl flex-col gap-10 p-8">
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Button</h2>
-        <div class="flex flex-wrap items-center gap-3">
-          <wc-button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-            Primary Action
-          </wc-button>
-          <wc-button
-            disabled
-            class="inline-flex items-center justify-center rounded-md border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-400"
-          >
-            Disabled
-          </wc-button>
+  <body class="min-h-screen bg-white text-slate-900 font-sans">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-sm">
+      <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">B</span>
+          </div>
+          <span class="font-semibold text-lg">Bare Components</span>
         </div>
-      </section>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#components" class="text-slate-600 hover:text-slate-900">Components</a>
+          <a href="https://github.com" class="text-slate-600 hover:text-slate-900">GitHub</a>
+          <a href="#" class="px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition">Get Started</a>
+        </nav>
+      </div>
+    </header>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Dialog</h2>
-        <wc-dialog>
-          <wc-dialog-trigger slot="trigger" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-            Open Dialog
-          </wc-dialog-trigger>
-          <div slot="content" class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-            <p class="text-sm text-slate-700">This is the dialog content.</p>
-            <div class="mt-3 flex gap-2">
-              <wc-dialog-close class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-                Close
-              </wc-dialog-close>
-            </div>
+    <!-- Hero -->
+    <section class="border-b border-slate-200 bg-gradient-to-b from-slate-50 to-white">
+      <div class="mx-auto max-w-7xl px-6 py-20 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-medium mb-6">
+          <wc-badge variant="primary" size="sm">v1.0</wc-badge>
+          <span>Zero dependencies • Framework agnostic</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          Beautiful Web Components<br>for Modern Applications
+        </h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+          Accessible, customizable UI primitives that work anywhere HTML works. 
+          Built for Laravel, Rails, Django, and any backend that renders HTML.
+        </p>
+        <div class="flex items-center justify-center gap-4">
+          <a href="#components" class="px-6 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-slate-800 transition">
+            Explore Components
+          </a>
+          <div class="code-block text-left">
+            npm install bare-components
           </div>
-        </wc-dialog>
-      </section>
+        </div>
+      </div>
+    </section>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Tabs</h2>
-        <wc-tabs value="overview">
-          <div slot="tabs" class="flex flex-wrap gap-2">
-            <button data-value="overview" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Overview
-            </button>
-            <button data-value="details" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Details
-            </button>
-            <button data-value="metrics" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Metrics
-            </button>
-          </div>
-          <div data-value="overview" slot="panels" class="rounded-md border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-sm">
-            Overview content
-          </div>
-          <div data-value="details" slot="panels" class="rounded-md border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-sm">
-            Details content
-          </div>
-          <div data-value="metrics" slot="panels" class="rounded-md border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-sm">
-            Metrics content
-          </div>
-        </wc-tabs>
-      </section>
+    <!-- Main Content -->
+    <div class="mx-auto max-w-7xl px-6 py-12">
+      <div class="flex gap-12">
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:block w-56 flex-shrink-0">
+          <nav class="sticky top-24 space-y-1">
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Components</p>
+            <a href="#button" class="nav-link block py-1.5 text-sm text-slate-600">Button</a>
+            <a href="#dialog" class="nav-link block py-1.5 text-sm text-slate-600">Dialog</a>
+            <a href="#tabs" class="nav-link block py-1.5 text-sm text-slate-600">Tabs</a>
+            <a href="#accordion" class="nav-link block py-1.5 text-sm text-slate-600">Accordion</a>
+            <a href="#select" class="nav-link block py-1.5 text-sm text-slate-600">Select</a>
+            <a href="#toast" class="nav-link block py-1.5 text-sm text-slate-600">Toast</a>
+            <a href="#sidepanel" class="nav-link block py-1.5 text-sm text-slate-600">Side Panel</a>
+            <a href="#dropdown" class="nav-link block py-1.5 text-sm text-slate-600">Dropdown</a>
+            <a href="#tooltip" class="nav-link block py-1.5 text-sm text-slate-600">Tooltip</a>
+            <a href="#switch" class="nav-link block py-1.5 text-sm text-slate-600">Switch</a>
+            <a href="#progress" class="nav-link block py-1.5 text-sm text-slate-600">Progress</a>
+            <a href="#skeleton" class="nav-link block py-1.5 text-sm text-slate-600">Skeleton</a>
+            <a href="#badge" class="nav-link block py-1.5 text-sm text-slate-600">Badge</a>
+            <a href="#alert" class="nav-link block py-1.5 text-sm text-slate-600">Alert</a>
+            <a href="#avatar" class="nav-link block py-1.5 text-sm text-slate-600">Avatar</a>
+            <a href="#spinner" class="nav-link block py-1.5 text-sm text-slate-600">Spinner</a>
+          </nav>
+        </aside>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Accordion</h2>
-        <wc-accordion class="gap-3">
-          <wc-accordion-item open class="rounded-md border border-slate-200 bg-white p-3 shadow-sm">
-            <wc-accordion-trigger slot="trigger" class="inline-flex items-center justify-between text-sm font-medium text-slate-800 w-full cursor-pointer">
-              First section
-            </wc-accordion-trigger>
-            <div slot="content" class="mt-2 text-sm text-slate-700">First panel content.</div>
-          </wc-accordion-item>
-          <wc-accordion-item class="rounded-md border border-slate-200 bg-white p-3 shadow-sm">
-            <wc-accordion-trigger slot="trigger" class="inline-flex items-center justify-between text-sm font-medium text-slate-800 w-full cursor-pointer">
-              Second section
-            </wc-accordion-trigger>
-            <div slot="content" class="mt-2 text-sm text-slate-700">Second panel content.</div>
-          </wc-accordion-item>
-        </wc-accordion>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Select</h2>
-        <div class="flex flex-col gap-6">
-          <div>
-            <p class="text-sm text-slate-500 mb-2">Basic Select</p>
-            <wc-select name="framework" placeholder="Choose a framework" clearable class="w-full max-w-sm">
-              <wc-option value="react">React</wc-option>
-              <wc-option value="vue">Vue</wc-option>
-              <wc-option value="svelte">Svelte</wc-option>
-              <wc-option value="solid">Solid</wc-option>
-              <wc-option value="lit">Lit</wc-option>
-            </wc-select>
-          </div>
+        <!-- Components -->
+        <main id="components" class="flex-1 min-w-0 space-y-16">
           
-          <div>
-            <p class="text-sm text-slate-500 mb-2">Searchable Select</p>
-            <wc-select name="country" placeholder="Search for a country..." searchable clearable class="w-full max-w-sm">
-              <wc-option value="us">United States</wc-option>
-              <wc-option value="uk">United Kingdom</wc-option>
-              <wc-option value="de">Germany</wc-option>
-              <wc-option value="fr">France</wc-option>
-              <wc-option value="jp">Japan</wc-option>
-              <wc-option value="cn">China</wc-option>
-              <wc-option value="in">India</wc-option>
-              <wc-option value="br">Brazil</wc-option>
-              <wc-option value="ca">Canada</wc-option>
-              <wc-option value="au">Australia</wc-option>
-            </wc-select>
-          </div>
-
-          <div>
-            <p class="text-sm text-slate-500 mb-2">Multiple Selection with Tags</p>
-            <wc-select name="skills" placeholder="Select skills..." multiple searchable clearable class="w-full max-w-sm">
-              <wc-option value="js">JavaScript</wc-option>
-              <wc-option value="ts">TypeScript</wc-option>
-              <wc-option value="py">Python</wc-option>
-              <wc-option value="rb">Ruby</wc-option>
-              <wc-option value="go">Go</wc-option>
-              <wc-option value="rs">Rust</wc-option>
-              <wc-option value="php">PHP</wc-option>
-              <wc-option value="java">Java</wc-option>
-            </wc-select>
-          </div>
-
-          <div>
-            <p class="text-sm text-slate-500 mb-2">Create New Options</p>
-            <wc-select name="tags" placeholder="Add tags..." multiple searchable create clearable class="w-full max-w-sm">
-              <wc-option value="bug">Bug</wc-option>
-              <wc-option value="feature">Feature</wc-option>
-              <wc-option value="docs">Documentation</wc-option>
-            </wc-select>
-          </div>
-
-          <div>
-            <p class="text-sm text-slate-500 mb-2">Disabled State</p>
-            <wc-select name="disabled" placeholder="This is disabled" disabled class="w-full max-w-sm">
-              <wc-option value="1">Option 1</wc-option>
-              <wc-option value="2">Option 2</wc-option>
-            </wc-select>
-          </div>
-
-          <div>
-            <p class="text-sm text-slate-500 mb-2">Load from URL (GitHub Users API)</p>
-            <wc-select 
-              name="github_user" 
-              placeholder="Search GitHub users..." 
-              url="https://api.github.com/search/users"
-              search-param="q"
-              value-field="login"
-              label-field="login"
-              min-chars="2"
-              searchable 
-              clearable 
-              class="w-full max-w-sm"
-            ></wc-select>
-          </div>
-
-          <div>
-            <p class="text-sm text-slate-500 mb-2">Load from URL - Multiple (REST Countries API)</p>
-            <wc-select 
-              name="countries" 
-              placeholder="Search countries..." 
-              url="https://restcountries.com/v3.1/name/{query}?fields=name,cca2"
-              value-field="cca2"
-              label-field="name.common"
-              min-chars="2"
-              searchable
-              multiple
-              clearable 
-              class="w-full max-w-sm"
-            ></wc-select>
-          </div>
-        </div>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Toast / Notifications</h2>
-        <div class="flex flex-wrap gap-3">
-          <button id="toast-success" class="inline-flex items-center justify-center rounded-md border border-green-300 bg-green-50 px-4 py-2 text-sm font-medium text-green-700 shadow-sm transition hover:bg-green-100">
-            Success Toast
-          </button>
-          <button id="toast-error" class="inline-flex items-center justify-center rounded-md border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 shadow-sm transition hover:bg-red-100">
-            Error Toast
-          </button>
-          <button id="toast-warning" class="inline-flex items-center justify-center rounded-md border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700 shadow-sm transition hover:bg-amber-100">
-            Warning Toast
-          </button>
-          <button id="toast-info" class="inline-flex items-center justify-center rounded-md border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm transition hover:bg-blue-100">
-            Info Toast
-          </button>
-          <button id="toast-action" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-            Toast with Actions
-          </button>
-          <button id="toast-persistent" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-            Persistent Toast
-          </button>
-          <button id="toast-spam" class="inline-flex items-center justify-center rounded-md border border-purple-300 bg-purple-50 px-4 py-2 text-sm font-medium text-purple-700 shadow-sm transition hover:bg-purple-100">
-            🔥 Spam 10 Toasts (Stacking Demo)
-          </button>
-        </div>
-        
-        <div class="mt-2">
-          <p class="text-sm text-slate-500 mb-2">Declarative Toast</p>
-          <wc-toast type="info" duration="0" dismissible="false">
-            <span slot="title">Declarative Example</span>
-            This toast is defined directly in HTML and won't auto-dismiss.
-          </wc-toast>
-        </div>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Side Panel</h2>
-        <div class="flex flex-wrap gap-3">
-          <button id="sidepanel-right" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-            Open Right Panel
-          </button>
-          <button id="sidepanel-left" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-            Open Left Panel
-          </button>
-          <button id="sidepanel-overlay" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-            Panel with Overlay
-          </button>
-        </div>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Dropdown Menu</h2>
-        <div class="flex flex-wrap gap-3">
-          <wc-dropdown position="bottom-start">
-            <button slot="trigger" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Options ▾
-            </button>
-            <button slot="item">Edit</button>
-            <button slot="item">Duplicate</button>
-            <div slot="divider"></div>
-            <button slot="item">Archive</button>
-            <button slot="item" disabled>Delete</button>
-          </wc-dropdown>
-
-          <wc-dropdown position="bottom-end">
-            <button slot="trigger" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Account ▾
-            </button>
-            <a slot="item" href="#">Profile</a>
-            <a slot="item" href="#">Settings</a>
-            <div slot="divider"></div>
-            <button slot="item">Sign Out</button>
-          </wc-dropdown>
-        </div>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Tooltip</h2>
-        <div class="flex flex-wrap gap-4">
-          <wc-tooltip position="top">
-            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Hover me (top)
-            </button>
-            <span slot="content">Tooltip on top</span>
-          </wc-tooltip>
-
-          <wc-tooltip position="bottom">
-            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Hover me (bottom)
-            </button>
-            <span slot="content">Tooltip on bottom</span>
-          </wc-tooltip>
-
-          <wc-tooltip position="left">
-            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Hover me (left)
-            </button>
-            <span slot="content">Tooltip on left</span>
-          </wc-tooltip>
-
-          <wc-tooltip position="right">
-            <button class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
-              Hover me (right)
-            </button>
-            <span slot="content">Tooltip on right</span>
-          </wc-tooltip>
-        </div>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Switch / Toggle</h2>
-        <div class="flex flex-col gap-3">
-          <wc-switch>Enable notifications</wc-switch>
-          <wc-switch checked>Dark mode</wc-switch>
-          <wc-switch disabled>Disabled option</wc-switch>
-        </div>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Progress</h2>
-        <div class="flex flex-col gap-4">
-          <wc-progress value="25" max="100">Uploading...</wc-progress>
-          <wc-progress value="60" max="100" variant="success">Completed</wc-progress>
-          <wc-progress value="85" max="100" variant="warning">Almost there</wc-progress>
-          <wc-progress indeterminate>Loading...</wc-progress>
-        </div>
-      </section>
-
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Skeleton Loaders</h2>
-        <div class="flex flex-col gap-4">
-          <div class="flex items-center gap-3">
-            <wc-skeleton variant="avatar"></wc-skeleton>
-            <div class="flex-1 space-y-2">
-              <wc-skeleton variant="text" width="60%"></wc-skeleton>
-              <wc-skeleton variant="text" width="40%"></wc-skeleton>
+          <!-- Button -->
+          <section id="button" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Button</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
             </div>
-          </div>
-          <wc-skeleton variant="rect" height="120px"></wc-skeleton>
-          <div class="flex gap-2">
-            <wc-skeleton variant="button"></wc-skeleton>
-            <wc-skeleton variant="button"></wc-skeleton>
-          </div>
-        </div>
-      </section>
+            <p class="text-slate-600 mb-6">Accessible button with keyboard support and loading states.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 flex flex-wrap items-center gap-3">
+                <wc-button class="inline-flex items-center justify-center rounded-lg bg-slate-900 text-white px-4 py-2.5 text-sm font-medium hover:bg-slate-800 transition">
+                  Primary
+                </wc-button>
+                <wc-button class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                  Secondary
+                </wc-button>
+                <wc-button class="inline-flex items-center justify-center rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  With Icon
+                </wc-button>
+                <wc-button disabled class="inline-flex items-center justify-center rounded-lg bg-slate-100 text-slate-400 px-4 py-2.5 text-sm font-medium cursor-not-allowed">
+                  Disabled
+                </wc-button>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-button class="..."&gt;Click me&lt;/wc-button&gt;
+&lt;wc-button disabled&gt;Disabled&lt;/wc-button&gt;</pre>
+              </div>
+            </div>
+          </section>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Badges</h2>
-        <div class="flex flex-wrap gap-2">
-          <wc-badge>Default</wc-badge>
-          <wc-badge variant="primary">Primary</wc-badge>
-          <wc-badge variant="secondary">Secondary</wc-badge>
-          <wc-badge variant="success">Success</wc-badge>
-          <wc-badge variant="warning">Warning</wc-badge>
-          <wc-badge variant="error">Error</wc-badge>
-          <wc-badge variant="info">Info</wc-badge>
-          <wc-badge variant="outline">Outline</wc-badge>
-          <wc-badge variant="outline-primary">Outline Primary</wc-badge>
-        </div>
-        <div class="flex flex-wrap gap-2 items-center">
-          <span>Status:</span>
-          <wc-badge variant="success" dot></wc-badge>
-          <span class="text-sm text-slate-600">Online</span>
-          <wc-badge variant="error" dot></wc-badge>
-          <span class="text-sm text-slate-600">Offline</span>
-        </div>
-      </section>
+          <!-- Dialog -->
+          <section id="dialog" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Dialog</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Modal dialog with backdrop, focus trapping, and keyboard navigation.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50">
+                <wc-dialog>
+                  <wc-dialog-trigger slot="trigger" class="inline-flex items-center justify-center rounded-lg bg-slate-900 text-white px-4 py-2.5 text-sm font-medium hover:bg-slate-800 transition">
+                    Open Dialog
+                  </wc-dialog-trigger>
+                  <div slot="content" class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md">
+                    <h3 class="text-lg font-semibold mb-2">Confirm Action</h3>
+                    <p class="text-slate-600 text-sm mb-6">Are you sure you want to proceed? This action cannot be undone.</p>
+                    <div class="flex justify-end gap-3">
+                      <wc-dialog-close class="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50 transition">
+                        Cancel
+                      </wc-dialog-close>
+                      <wc-dialog-close class="px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition">
+                        Delete
+                      </wc-dialog-close>
+                    </div>
+                  </div>
+                </wc-dialog>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-dialog&gt;
+  &lt;wc-dialog-trigger slot="trigger"&gt;Open&lt;/wc-dialog-trigger&gt;
+  &lt;div slot="content"&gt;Dialog content...&lt;/div&gt;
+&lt;/wc-dialog&gt;</pre>
+              </div>
+            </div>
+          </section>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Alerts</h2>
-        <div class="flex flex-col gap-3">
-          <wc-alert variant="info">
-            <span slot="title">Information</span>
-            This is an informational message.
-          </wc-alert>
-          <wc-alert variant="success">
-            <span slot="title">Success</span>
-            Your changes have been saved.
-          </wc-alert>
-          <wc-alert variant="warning" dismissible>
-            <span slot="title">Warning</span>
-            Your session will expire soon.
-          </wc-alert>
-          <wc-alert variant="error" dismissible>
-            <span slot="title">Error</span>
-            Failed to save changes. Please try again.
-          </wc-alert>
-        </div>
-      </section>
+          <!-- Tabs -->
+          <section id="tabs" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Tabs</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Tab navigation with keyboard support and ARIA attributes.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50">
+                <wc-tabs value="account" class="w-full">
+                  <div slot="tabs" class="flex border-b border-slate-200 mb-4">
+                    <button data-value="account" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                      Account
+                    </button>
+                    <button data-value="password" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                      Password
+                    </button>
+                    <button data-value="notifications" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                      Notifications
+                    </button>
+                  </div>
+                  <div data-value="account" slot="panels" class="p-4 bg-white rounded-lg border border-slate-200">
+                    <h4 class="font-medium mb-2">Account Settings</h4>
+                    <p class="text-sm text-slate-600">Manage your account details and preferences.</p>
+                  </div>
+                  <div data-value="password" slot="panels" class="p-4 bg-white rounded-lg border border-slate-200">
+                    <h4 class="font-medium mb-2">Password Settings</h4>
+                    <p class="text-sm text-slate-600">Update your password and security options.</p>
+                  </div>
+                  <div data-value="notifications" slot="panels" class="p-4 bg-white rounded-lg border border-slate-200">
+                    <h4 class="font-medium mb-2">Notification Preferences</h4>
+                    <p class="text-sm text-slate-600">Configure how you receive notifications.</p>
+                  </div>
+                </wc-tabs>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-tabs value="account"&gt;
+  &lt;div slot="tabs"&gt;
+    &lt;button data-value="account"&gt;Account&lt;/button&gt;
+    &lt;button data-value="password"&gt;Password&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div data-value="account" slot="panels"&gt;...&lt;/div&gt;
+  &lt;div data-value="password" slot="panels"&gt;...&lt;/div&gt;
+&lt;/wc-tabs&gt;</pre>
+              </div>
+            </div>
+          </section>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Avatars</h2>
-        <div class="flex flex-wrap items-center gap-3">
-          <wc-avatar src="https://i.pravatar.cc/100?u=1" alt="John Doe" size="xs"></wc-avatar>
-          <wc-avatar src="https://i.pravatar.cc/100?u=2" alt="Jane Smith" size="sm"></wc-avatar>
-          <wc-avatar src="https://i.pravatar.cc/100?u=3" alt="Bob Wilson"></wc-avatar>
-          <wc-avatar src="https://i.pravatar.cc/100?u=4" alt="Alice Brown" size="lg"></wc-avatar>
-          <wc-avatar src="https://i.pravatar.cc/100?u=5" alt="Charlie Green" size="xl"></wc-avatar>
-          <wc-avatar fallback="John Doe" size="lg"></wc-avatar>
-          <wc-avatar size="lg"></wc-avatar>
-        </div>
-      </section>
+          <!-- Accordion -->
+          <section id="accordion" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Accordion</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Collapsible content sections with smooth animations.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50">
+                <wc-accordion class="space-y-2">
+                  <wc-accordion-item open class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+                    <wc-accordion-trigger slot="trigger" class="w-full px-4 py-3 flex items-center justify-between text-left font-medium hover:bg-slate-50 cursor-pointer">
+                      What is Bare Components?
+                      <svg class="w-5 h-5 text-slate-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </wc-accordion-trigger>
+                    <div slot="content" class="px-4 pb-4 text-sm text-slate-600">
+                      Bare Components is a collection of zero-dependency, framework-agnostic web components built for modern web applications.
+                    </div>
+                  </wc-accordion-item>
+                  <wc-accordion-item class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+                    <wc-accordion-trigger slot="trigger" class="w-full px-4 py-3 flex items-center justify-between text-left font-medium hover:bg-slate-50 cursor-pointer">
+                      How do I install it?
+                      <svg class="w-5 h-5 text-slate-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </wc-accordion-trigger>
+                    <div slot="content" class="px-4 pb-4 text-sm text-slate-600">
+                      Install via npm: <code class="bg-slate-100 px-1.5 py-0.5 rounded">npm install bare-components</code>
+                    </div>
+                  </wc-accordion-item>
+                  <wc-accordion-item class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+                    <wc-accordion-trigger slot="trigger" class="w-full px-4 py-3 flex items-center justify-between text-left font-medium hover:bg-slate-50 cursor-pointer">
+                      Is it accessible?
+                      <svg class="w-5 h-5 text-slate-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </wc-accordion-trigger>
+                    <div slot="content" class="px-4 pb-4 text-sm text-slate-600">
+                      Yes! All components follow WAI-ARIA guidelines and support keyboard navigation.
+                    </div>
+                  </wc-accordion-item>
+                </wc-accordion>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-accordion&gt;
+  &lt;wc-accordion-item open&gt;
+    &lt;wc-accordion-trigger slot="trigger"&gt;Title&lt;/wc-accordion-trigger&gt;
+    &lt;div slot="content"&gt;Content...&lt;/div&gt;
+  &lt;/wc-accordion-item&gt;
+&lt;/wc-accordion&gt;</pre>
+              </div>
+            </div>
+          </section>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Spinners</h2>
-        <div class="flex flex-wrap items-center gap-4">
-          <wc-spinner size="xs"></wc-spinner>
-          <wc-spinner size="sm"></wc-spinner>
-          <wc-spinner></wc-spinner>
-          <wc-spinner size="lg"></wc-spinner>
-          <wc-spinner size="xl"></wc-spinner>
-          <wc-spinner variant="success"></wc-spinner>
-          <wc-spinner variant="error"></wc-spinner>
-          <div class="inline-flex items-center justify-center rounded-md bg-slate-900 px-4 py-2">
-            <wc-spinner variant="white" size="sm"></wc-spinner>
-          </div>
-        </div>
-      </section>
+          <!-- Select -->
+          <section id="select" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Select</h2>
+              <wc-badge variant="primary" size="sm">Feature-rich</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Powerful select with search, multiple selection, remote data loading, and option creation.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 space-y-6">
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-2">Basic Select</label>
+                  <wc-select name="framework" placeholder="Choose a framework" searchable clearable class="w-full max-w-xs">
+                    <wc-option value="react">React</wc-option>
+                    <wc-option value="vue">Vue</wc-option>
+                    <wc-option value="svelte">Svelte</wc-option>
+                    <wc-option value="angular">Angular</wc-option>
+                  </wc-select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-2">Multiple Selection</label>
+                  <wc-select name="skills" placeholder="Select skills" multiple searchable clearable class="w-full max-w-md">
+                    <wc-option value="js">JavaScript</wc-option>
+                    <wc-option value="ts">TypeScript</wc-option>
+                    <wc-option value="py">Python</wc-option>
+                    <wc-option value="go">Go</wc-option>
+                    <wc-option value="rust">Rust</wc-option>
+                  </wc-select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-2">Remote Loading (GitHub Users)</label>
+                  <wc-select 
+                    name="user" 
+                    placeholder="Search GitHub users..." 
+                    searchable 
+                    clearable
+                    remote-url="https://api.github.com/search/users?q={query}"
+                    remote-path="items"
+                    remote-value="login"
+                    remote-label="login"
+                    class="w-full max-w-xs"
+                  ></wc-select>
+                </div>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-select placeholder="Choose..." searchable clearable multiple&gt;
+  &lt;wc-option value="1"&gt;Option 1&lt;/wc-option&gt;
+  &lt;wc-option value="2"&gt;Option 2&lt;/wc-option&gt;
+&lt;/wc-select&gt;
+
+&lt;!-- Remote loading --&gt;
+&lt;wc-select 
+  remote-url="https://api.example.com/search?q={query}"
+  remote-path="data"
+  remote-value="id"
+  remote-label="name"
+&gt;&lt;/wc-select&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Toast -->
+          <section id="toast" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Toast</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Stackable notification toasts with actions and auto-dismiss.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50">
+                <div class="flex flex-wrap gap-3">
+                  <button id="toast-success" class="inline-flex items-center gap-2 rounded-lg bg-green-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-green-700 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    Success
+                  </button>
+                  <button id="toast-error" class="inline-flex items-center gap-2 rounded-lg bg-red-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-red-700 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    Error
+                  </button>
+                  <button id="toast-warning" class="inline-flex items-center gap-2 rounded-lg bg-amber-500 text-white px-4 py-2.5 text-sm font-medium hover:bg-amber-600 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    Warning
+                  </button>
+                  <button id="toast-info" class="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Info
+                  </button>
+                  <button id="toast-action" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                    With Action
+                  </button>
+                </div>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">// Programmatic API
+WcToast.show({
+  type: 'success',
+  title: 'Saved!',
+  message: 'Your changes have been saved.',
+  duration: 5000
+});
+
+// With actions
+WcToast.show({
+  type: 'info',
+  title: 'Confirm',
+  message: 'Are you sure?',
+  actions: [
+    { label: 'Yes', onClick: () => confirm() },
+    { label: 'No' }
+  ]
+});</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Side Panel -->
+          <section id="sidepanel" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Side Panel</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Sliding drawer panel from left or right with overlay support.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 flex flex-wrap gap-3">
+                <button id="sidepanel-right" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  Open Right
+                </button>
+                <button id="sidepanel-left" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                  Open Left
+                </button>
+                <button id="sidepanel-overlay" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                  With Overlay
+                </button>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-sidepanel position="right" overlay&gt;
+  &lt;span slot="title"&gt;Settings&lt;/span&gt;
+  &lt;p&gt;Panel content...&lt;/p&gt;
+  &lt;div slot="footer"&gt;
+    &lt;button data-close&gt;Cancel&lt;/button&gt;
+    &lt;button&gt;Save&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/wc-sidepanel&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Dropdown -->
+          <section id="dropdown" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Dropdown</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Dropdown menu with keyboard navigation and positioning options.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 flex flex-wrap gap-3">
+                <wc-dropdown position="bottom-start">
+                  <button slot="trigger" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                    Actions
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  <button slot="item">Edit</button>
+                  <button slot="item">Duplicate</button>
+                  <button slot="item">Archive</button>
+                  <div slot="divider"></div>
+                  <button slot="item" class="text-red-600">Delete</button>
+                </wc-dropdown>
+
+                <wc-dropdown position="bottom-end">
+                  <button slot="trigger" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                    <wc-avatar src="https://i.pravatar.cc/32?u=1" size="xs"></wc-avatar>
+                    Account
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  <a slot="item" href="#">Profile</a>
+                  <a slot="item" href="#">Settings</a>
+                  <a slot="item" href="#">Billing</a>
+                  <div slot="divider"></div>
+                  <button slot="item">Sign out</button>
+                </wc-dropdown>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-dropdown position="bottom-start"&gt;
+  &lt;button slot="trigger"&gt;Menu ▾&lt;/button&gt;
+  &lt;button slot="item"&gt;Edit&lt;/button&gt;
+  &lt;button slot="item"&gt;Delete&lt;/button&gt;
+  &lt;div slot="divider"&gt;&lt;/div&gt;
+  &lt;button slot="item"&gt;Archive&lt;/button&gt;
+&lt;/wc-dropdown&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tooltip -->
+          <section id="tooltip" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Tooltip</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Simple tooltips with positioning and delay options.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 flex flex-wrap gap-4 items-center justify-center">
+                <wc-tooltip position="top">
+                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                  </button>
+                  <span slot="content">Top tooltip</span>
+                </wc-tooltip>
+                <wc-tooltip position="right">
+                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                  <span slot="content">Right tooltip</span>
+                </wc-tooltip>
+                <wc-tooltip position="bottom">
+                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  <span slot="content">Bottom tooltip</span>
+                </wc-tooltip>
+                <wc-tooltip position="left">
+                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                  </button>
+                  <span slot="content">Left tooltip</span>
+                </wc-tooltip>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-tooltip position="top"&gt;
+  &lt;button&gt;Hover me&lt;/button&gt;
+  &lt;span slot="content"&gt;Tooltip text&lt;/span&gt;
+&lt;/wc-tooltip&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Switch -->
+          <section id="switch" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Switch</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Toggle switch for boolean values with form integration.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50">
+                <div class="space-y-4 max-w-sm">
+                  <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200">
+                    <span class="text-sm font-medium">Email notifications</span>
+                    <wc-switch checked></wc-switch>
+                  </div>
+                  <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200">
+                    <span class="text-sm font-medium">Marketing emails</span>
+                    <wc-switch></wc-switch>
+                  </div>
+                  <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200">
+                    <span class="text-sm font-medium">Two-factor auth</span>
+                    <wc-switch checked></wc-switch>
+                  </div>
+                  <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200 opacity-60">
+                    <span class="text-sm font-medium">Disabled option</span>
+                    <wc-switch disabled></wc-switch>
+                  </div>
+                </div>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-switch&gt;Enable feature&lt;/wc-switch&gt;
+&lt;wc-switch checked&gt;Active by default&lt;/wc-switch&gt;
+&lt;wc-switch disabled&gt;Disabled&lt;/wc-switch&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Progress -->
+          <section id="progress" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Progress</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Progress bars with variants and indeterminate state.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 space-y-6">
+                <wc-progress value="35" max="100">Uploading files...</wc-progress>
+                <wc-progress value="65" max="100" variant="success">Installation complete</wc-progress>
+                <wc-progress value="85" max="100" variant="warning">Storage almost full</wc-progress>
+                <wc-progress value="45" max="100" variant="error">Upload failed</wc-progress>
+                <wc-progress indeterminate>Processing...</wc-progress>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-progress value="60" max="100"&gt;Loading...&lt;/wc-progress&gt;
+&lt;wc-progress value="80" variant="success"&gt;Complete&lt;/wc-progress&gt;
+&lt;wc-progress indeterminate&gt;Processing...&lt;/wc-progress&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Skeleton -->
+          <section id="skeleton" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Skeleton</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Loading placeholders with shimmer animation.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 space-y-6">
+                <!-- Card skeleton -->
+                <div class="bg-white p-4 rounded-lg border border-slate-200 space-y-4">
+                  <div class="flex items-center gap-3">
+                    <wc-skeleton variant="avatar" size="lg"></wc-skeleton>
+                    <div class="flex-1 space-y-2">
+                      <wc-skeleton variant="text" width="50%"></wc-skeleton>
+                      <wc-skeleton variant="text" width="30%"></wc-skeleton>
+                    </div>
+                  </div>
+                  <wc-skeleton variant="rect" height="160px"></wc-skeleton>
+                  <div class="flex gap-2">
+                    <wc-skeleton variant="button"></wc-skeleton>
+                    <wc-skeleton variant="button"></wc-skeleton>
+                  </div>
+                </div>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-skeleton variant="avatar"&gt;&lt;/wc-skeleton&gt;
+&lt;wc-skeleton variant="text" width="60%"&gt;&lt;/wc-skeleton&gt;
+&lt;wc-skeleton variant="rect" height="200px"&gt;&lt;/wc-skeleton&gt;
+&lt;wc-skeleton variant="button"&gt;&lt;/wc-skeleton&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Badge -->
+          <section id="badge" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Badge</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Status indicators and labels in various styles.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 space-y-4">
+                <div class="flex flex-wrap gap-2">
+                  <wc-badge>Default</wc-badge>
+                  <wc-badge variant="primary">Primary</wc-badge>
+                  <wc-badge variant="secondary">Secondary</wc-badge>
+                  <wc-badge variant="success">Success</wc-badge>
+                  <wc-badge variant="warning">Warning</wc-badge>
+                  <wc-badge variant="error">Error</wc-badge>
+                  <wc-badge variant="info">Info</wc-badge>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <wc-badge variant="outline">Outline</wc-badge>
+                  <wc-badge variant="outline-primary">Outline Primary</wc-badge>
+                  <wc-badge variant="outline-success">Outline Success</wc-badge>
+                  <wc-badge variant="outline-error">Outline Error</wc-badge>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="flex items-center gap-2">
+                    <wc-badge variant="success" dot></wc-badge>
+                    <span class="text-sm">Online</span>
+                  </span>
+                  <span class="flex items-center gap-2">
+                    <wc-badge variant="error" dot></wc-badge>
+                    <span class="text-sm">Offline</span>
+                  </span>
+                  <span class="flex items-center gap-2">
+                    <wc-badge variant="warning" dot></wc-badge>
+                    <span class="text-sm">Away</span>
+                  </span>
+                </div>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-badge variant="success"&gt;Active&lt;/wc-badge&gt;
+&lt;wc-badge variant="error"&gt;Expired&lt;/wc-badge&gt;
+&lt;wc-badge variant="outline-primary"&gt;Beta&lt;/wc-badge&gt;
+&lt;wc-badge variant="success" dot&gt;&lt;/wc-badge&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Alert -->
+          <section id="alert" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Alert</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Informational messages with icons and dismiss option.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 space-y-4">
+                <wc-alert variant="info">
+                  <span slot="title">New update available</span>
+                  A new version of the application is available. Please refresh to update.
+                </wc-alert>
+                <wc-alert variant="success">
+                  <span slot="title">Payment successful</span>
+                  Your payment has been processed successfully.
+                </wc-alert>
+                <wc-alert variant="warning" dismissible>
+                  <span slot="title">Your trial is ending</span>
+                  You have 3 days left in your trial. Upgrade now to keep access.
+                </wc-alert>
+                <wc-alert variant="error" dismissible>
+                  <span slot="title">Connection lost</span>
+                  Unable to connect to the server. Please check your internet connection.
+                </wc-alert>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-alert variant="success"&gt;
+  &lt;span slot="title"&gt;Success!&lt;/span&gt;
+  Your changes have been saved.
+&lt;/wc-alert&gt;
+
+&lt;wc-alert variant="error" dismissible&gt;
+  &lt;span slot="title"&gt;Error&lt;/span&gt;
+  Something went wrong.
+&lt;/wc-alert&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Avatar -->
+          <section id="avatar" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Avatar</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">User avatars with image, initials, or fallback icon.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 space-y-6">
+                <div class="flex items-end gap-4">
+                  <wc-avatar src="https://i.pravatar.cc/64?u=1" alt="John Doe" size="xs"></wc-avatar>
+                  <wc-avatar src="https://i.pravatar.cc/64?u=2" alt="Jane Smith" size="sm"></wc-avatar>
+                  <wc-avatar src="https://i.pravatar.cc/64?u=3" alt="Bob Wilson"></wc-avatar>
+                  <wc-avatar src="https://i.pravatar.cc/64?u=4" alt="Alice Brown" size="lg"></wc-avatar>
+                  <wc-avatar src="https://i.pravatar.cc/64?u=5" alt="Charlie Davis" size="xl"></wc-avatar>
+                  <wc-avatar src="https://i.pravatar.cc/64?u=6" alt="Emma Wilson" size="2xl"></wc-avatar>
+                </div>
+                <div class="flex items-center gap-4">
+                  <wc-avatar fallback="John Doe" size="lg"></wc-avatar>
+                  <wc-avatar fallback="Jane Smith" size="lg"></wc-avatar>
+                  <wc-avatar fallback="A" size="lg"></wc-avatar>
+                  <wc-avatar size="lg"></wc-avatar>
+                </div>
+                <!-- Avatar group -->
+                <div class="flex -space-x-3">
+                  <wc-avatar src="https://i.pravatar.cc/64?u=10" class="ring-2 ring-white"></wc-avatar>
+                  <wc-avatar src="https://i.pravatar.cc/64?u=11" class="ring-2 ring-white"></wc-avatar>
+                  <wc-avatar src="https://i.pravatar.cc/64?u=12" class="ring-2 ring-white"></wc-avatar>
+                  <wc-avatar fallback="+5" class="ring-2 ring-white bg-slate-200"></wc-avatar>
+                </div>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-avatar src="photo.jpg" alt="John Doe"&gt;&lt;/wc-avatar&gt;
+&lt;wc-avatar fallback="John Doe" size="lg"&gt;&lt;/wc-avatar&gt;
+&lt;wc-avatar size="xl"&gt;&lt;/wc-avatar&gt; &lt;!-- Default icon --&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Spinner -->
+          <section id="spinner" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Spinner</h2>
+              <wc-badge variant="success" size="sm">Stable</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Loading spinners in various sizes and colors.</p>
+            
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50 space-y-6">
+                <div class="flex items-center gap-6">
+                  <wc-spinner size="xs"></wc-spinner>
+                  <wc-spinner size="sm"></wc-spinner>
+                  <wc-spinner></wc-spinner>
+                  <wc-spinner size="lg"></wc-spinner>
+                  <wc-spinner size="xl"></wc-spinner>
+                </div>
+                <div class="flex items-center gap-6">
+                  <wc-spinner variant="primary"></wc-spinner>
+                  <wc-spinner variant="secondary"></wc-spinner>
+                  <wc-spinner variant="success"></wc-spinner>
+                  <wc-spinner variant="error"></wc-spinner>
+                  <div class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-slate-900">
+                    <wc-spinner variant="white"></wc-spinner>
+                  </div>
+                </div>
+                <!-- Button with spinner -->
+                <button class="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium opacity-80 cursor-wait">
+                  <wc-spinner variant="white" size="sm"></wc-spinner>
+                  Loading...
+                </button>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-spinner&gt;&lt;/wc-spinner&gt;
+&lt;wc-spinner size="lg"&gt;&lt;/wc-spinner&gt;
+&lt;wc-spinner variant="success"&gt;&lt;/wc-spinner&gt;
+&lt;wc-spinner variant="white" size="sm"&gt;&lt;/wc-spinner&gt;</pre>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 mt-20">
+      <div class="mx-auto max-w-7xl px-6 py-8">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+              <span class="text-white font-bold text-xs">B</span>
+            </div>
+            <span class="text-sm text-slate-600">Bare Components</span>
+          </div>
+          <p class="text-sm text-slate-500">MIT License</p>
+        </div>
+      </div>
+    </footer>
 
     <!-- Side Panels -->
     <wc-sidepanel id="panel-right" position="right">
       <span slot="title">Settings</span>
       <div class="space-y-4">
-        <p class="text-sm text-slate-600">This panel slides in from the right. Press Escape or click the X to close.</p>
+        <p class="text-sm text-slate-600">Configure your preferences below.</p>
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
-          <input type="text" class="w-full px-3 py-2 border border-slate-300 rounded-md text-sm" placeholder="Enter username">
+          <input type="text" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter username">
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
-          <input type="email" class="w-full px-3 py-2 border border-slate-300 rounded-md text-sm" placeholder="Enter email">
+          <input type="email" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter email">
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium">Dark mode</span>
+          <wc-switch></wc-switch>
         </div>
       </div>
-      <div slot="footer" class="flex justify-end gap-2">
-        <button data-close class="px-4 py-2 text-sm border border-slate-300 rounded-md hover:bg-slate-100">Cancel</button>
-        <button class="px-4 py-2 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600">Save</button>
+      <div slot="footer" class="flex justify-end gap-3">
+        <button data-close class="px-4 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-50 transition">Cancel</button>
+        <button class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Save</button>
       </div>
     </wc-sidepanel>
 
     <wc-sidepanel id="panel-left" position="left">
       <span slot="title">Navigation</span>
       <nav class="space-y-1">
-        <a href="#" class="block px-3 py-2 text-sm rounded-md hover:bg-slate-100">Dashboard</a>
-        <a href="#" class="block px-3 py-2 text-sm rounded-md hover:bg-slate-100">Projects</a>
-        <a href="#" class="block px-3 py-2 text-sm rounded-md hover:bg-slate-100">Team</a>
-        <a href="#" class="block px-3 py-2 text-sm rounded-md hover:bg-slate-100">Settings</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-slate-100 transition">
+          <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-slate-100 transition">
+          <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+          Projects
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-slate-100 transition">
+          <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          Team
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-slate-100 transition">
+          <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Settings
+        </a>
       </nav>
     </wc-sidepanel>
 
     <wc-sidepanel id="panel-overlay" position="right" overlay>
       <span slot="title">Details</span>
-      <p class="text-sm text-slate-600">This panel has an overlay backdrop. Click the overlay to close.</p>
+      <p class="text-sm text-slate-600">This panel has an overlay backdrop. Click outside or press Escape to close.</p>
     </wc-sidepanel>
 
     <wc-toast-container position="top-right" max="5"></wc-toast-container>
@@ -442,10 +875,11 @@
 
       registerAll();
 
+      // Toast handlers
       document.getElementById('toast-success').addEventListener('click', () => {
         WcToast.show({
           type: 'success',
-          title: 'Success!',
+          title: 'Changes saved',
           message: 'Your changes have been saved successfully.'
         });
       });
@@ -453,7 +887,7 @@
       document.getElementById('toast-error').addEventListener('click', () => {
         WcToast.show({
           type: 'error',
-          title: 'Error',
+          title: 'Error occurred',
           message: 'Something went wrong. Please try again.'
         });
       });
@@ -469,51 +903,29 @@
       document.getElementById('toast-info').addEventListener('click', () => {
         WcToast.show({
           type: 'info',
-          title: 'New Update Available',
-          message: 'A new version is available. Refresh to update.'
+          title: 'New update',
+          message: 'A new version is available.'
         });
       });
 
       document.getElementById('toast-action').addEventListener('click', () => {
         WcToast.show({
           type: 'info',
-          title: 'Confirm Action',
+          title: 'Confirm action',
           message: 'Are you sure you want to proceed?',
           duration: 0,
           actions: [
             { 
               label: 'Confirm', 
-              class: 'bg-blue-500 text-white border-0 hover:bg-blue-600',
+              class: 'bg-blue-600 text-white border-0 hover:bg-blue-700',
               onClick: () => alert('Confirmed!')
             },
             { 
               label: 'Cancel', 
-              class: 'bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200'
+              class: 'bg-white border border-slate-300 hover:bg-slate-50'
             }
           ]
         });
-      });
-
-      document.getElementById('toast-persistent').addEventListener('click', () => {
-        WcToast.show({
-          type: 'warning',
-          title: 'Important Notice',
-          message: 'This notification will not auto-dismiss.',
-          duration: 0
-        });
-      });
-
-      document.getElementById('toast-spam').addEventListener('click', () => {
-        const types = ['success', 'error', 'warning', 'info'];
-        for (let i = 1; i <= 10; i++) {
-          setTimeout(() => {
-            WcToast.show({
-              type: types[(i - 1) % 4],
-              title: `Notification #${i}`,
-              message: `This is stacked toast number ${i}. Old ones get removed.`
-            });
-          }, i * 100);
-        }
       });
 
       // Side panel handlers
@@ -528,6 +940,22 @@
       document.getElementById('sidepanel-overlay').addEventListener('click', () => {
         document.getElementById('panel-overlay').show();
       });
+
+      // Active nav link highlighting
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sections = document.querySelectorAll('.component-section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+            if (activeLink) activeLink.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -80% 0px' });
+
+      sections.forEach(section => observer.observe(section));
     </script>
   </body>
 </html>
