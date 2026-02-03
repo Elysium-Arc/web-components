@@ -10,7 +10,8 @@ export class WcToastContainer extends HTMLElement {
       <style>
         :host {
           position: fixed;
-          z-index: 99999;
+          z-index: 9999;
+          isolation: isolate;
           pointer-events: none;
           display: flex;
           flex-direction: column;

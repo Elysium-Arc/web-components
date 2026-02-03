@@ -23,12 +23,20 @@ export class WcDialog extends HTMLElement {
           display: contents;
         }
         
+        :host([open]) {
+          display: block;
+          position: fixed;
+          inset: 0;
+          z-index: 9997;
+          isolation: isolate;
+        }
+        
         .backdrop {
           display: none;
           position: fixed;
           inset: 0;
           background: rgba(0, 0, 0, 0.5);
-          z-index: 40;
+          z-index: 1;
         }
         
         .content-wrapper {
@@ -37,7 +45,7 @@ export class WcDialog extends HTMLElement {
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
-          z-index: 50;
+          z-index: 2;
           max-width: 90vw;
           max-height: 90vh;
           overflow: auto;

@@ -99,7 +99,7 @@
         <aside class="hidden lg:block w-56 flex-shrink-0">
           <nav class="sticky top-24 space-y-1">
             <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Components</p>
-            <a href="#button" class="nav-link block py-1.5 text-sm text-slate-600">Button</a>
+            <a href="#wb-button" class="nav-link block py-1.5 text-sm text-slate-600">Button</a>
             <a href="#dialog" class="nav-link block py-1.5 text-sm text-slate-600">Dialog</a>
             <a href="#tabs" class="nav-link block py-1.5 text-sm text-slate-600">Tabs</a>
             <a href="#accordion" class="nav-link block py-1.5 text-sm text-slate-600">Accordion</a>
@@ -122,32 +122,32 @@
         <main id="components" class="flex-1 min-w-0 space-y-16">
           
           <!-- Button -->
-          <section id="button" class="component-section">
+          <section id="wb-button" class="component-section">
             <div class="flex items-center gap-3 mb-4">
               <h2 class="text-2xl font-semibold">Button</h2>
               <wc-badge variant="success" size="sm">Stable</wc-badge>
             </div>
-            <p class="text-slate-600 mb-6">Accessible button with keyboard support and loading states.</p>
+            <p class="text-slate-600 mb-6">Accessible wb-button with keyboard support and loading states.</p>
             
             <div class="border border-slate-200 rounded-xl overflow-hidden">
               <div class="p-6 bg-slate-50 flex flex-wrap items-center gap-3">
-                <wc-button class="inline-flex items-center justify-center rounded-lg bg-slate-900 text-white px-4 py-2.5 text-sm font-medium hover:bg-slate-800 transition">
+                <wc-wb-button class="inline-flex items-center justify-center rounded-lg bg-slate-900 text-white px-4 py-2.5 text-sm font-medium hover:bg-slate-800 transition">
                   Primary
-                </wc-button>
-                <wc-button class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                </wc-wb-button>
+                <wc-wb-button class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
                   Secondary
-                </wc-button>
-                <wc-button class="inline-flex items-center justify-center rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition">
+                </wc-wb-button>
+                <wc-wb-button class="inline-flex items-center justify-center rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition">
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                   With Icon
-                </wc-button>
-                <wc-button disabled class="inline-flex items-center justify-center rounded-lg bg-slate-100 text-slate-400 px-4 py-2.5 text-sm font-medium cursor-not-allowed">
+                </wc-wb-button>
+                <wc-wb-button disabled class="inline-flex items-center justify-center rounded-lg bg-slate-100 text-slate-400 px-4 py-2.5 text-sm font-medium cursor-not-allowed">
                   Disabled
-                </wc-button>
+                </wc-wb-button>
               </div>
               <div class="border-t border-slate-200 p-4">
-                <pre class="code-block">&lt;wc-button class="..."&gt;Click me&lt;/wc-button&gt;
-&lt;wc-button disabled&gt;Disabled&lt;/wc-button&gt;</pre>
+                <pre class="code-block">&lt;wc-wb-button class="..."&gt;Click me&lt;/wc-wb-button&gt;
+&lt;wc-wb-button disabled&gt;Disabled&lt;/wc-wb-button&gt;</pre>
               </div>
             </div>
           </section>
@@ -201,15 +201,15 @@
               <div class="p-6 bg-slate-50">
                 <wc-tabs value="account" class="w-full">
                   <div slot="tabs" class="flex border-b border-slate-200 mb-4">
-                    <button data-value="account" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                    <wb-button data-value="account" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
                       Account
-                    </button>
-                    <button data-value="password" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                    </wb-button>
+                    <wb-button data-value="password" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
                       Password
-                    </button>
-                    <button data-value="notifications" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
+                    </wb-button>
+                    <wb-button data-value="notifications" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent data-[active]:border-blue-600 data-[active]:text-blue-600 text-slate-600 hover:text-slate-900 transition">
                       Notifications
-                    </button>
+                    </wb-button>
                   </div>
                   <div data-value="account" slot="panels" class="p-4 bg-white rounded-lg border border-slate-200">
                     <h4 class="font-medium mb-2">Account Settings</h4>
@@ -228,8 +228,8 @@
               <div class="border-t border-slate-200 p-4">
                 <pre class="code-block">&lt;wc-tabs value="account"&gt;
   &lt;div slot="tabs"&gt;
-    &lt;button data-value="account"&gt;Account&lt;/button&gt;
-    &lt;button data-value="password"&gt;Password&lt;/button&gt;
+    &lt;wb-button data-value="account"&gt;Account&lt;/wb-button&gt;
+    &lt;wb-button data-value="password"&gt;Password&lt;/wb-button&gt;
   &lt;/div&gt;
   &lt;div data-value="account" slot="panels"&gt;...&lt;/div&gt;
   &lt;div data-value="password" slot="panels"&gt;...&lt;/div&gt;
@@ -361,25 +361,25 @@
             <div class="border border-slate-200 rounded-xl overflow-hidden">
               <div class="p-6 bg-slate-50">
                 <div class="flex flex-wrap gap-3">
-                  <button id="toast-success" class="inline-flex items-center gap-2 rounded-lg bg-green-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-green-700 transition">
+                  <wb-button id="toast-success" class="inline-flex items-center gap-2 rounded-lg bg-green-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-green-700 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                     Success
-                  </button>
-                  <button id="toast-error" class="inline-flex items-center gap-2 rounded-lg bg-red-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-red-700 transition">
+                  </wb-button>
+                  <wb-button id="toast-error" class="inline-flex items-center gap-2 rounded-lg bg-red-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-red-700 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     Error
-                  </button>
-                  <button id="toast-warning" class="inline-flex items-center gap-2 rounded-lg bg-amber-500 text-white px-4 py-2.5 text-sm font-medium hover:bg-amber-600 transition">
+                  </wb-button>
+                  <wb-button id="toast-warning" class="inline-flex items-center gap-2 rounded-lg bg-amber-500 text-white px-4 py-2.5 text-sm font-medium hover:bg-amber-600 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                     Warning
-                  </button>
-                  <button id="toast-info" class="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition">
+                  </wb-button>
+                  <wb-button id="toast-info" class="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Info
-                  </button>
-                  <button id="toast-action" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                  </wb-button>
+                  <wb-button id="toast-action" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
                     With Action
-                  </button>
+                  </wb-button>
                 </div>
               </div>
               <div class="border-t border-slate-200 p-4">
@@ -415,25 +415,25 @@ WcToast.show({
             
             <div class="border border-slate-200 rounded-xl overflow-hidden">
               <div class="p-6 bg-slate-50 flex flex-wrap gap-3">
-                <button id="sidepanel-right" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                <wb-button id="sidepanel-right" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                   Open Right
-                </button>
-                <button id="sidepanel-left" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                </wb-button>
+                <wb-button id="sidepanel-left" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                   Open Left
-                </button>
-                <button id="sidepanel-overlay" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                </wb-button>
+                <wb-button id="sidepanel-overlay" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
                   With Overlay
-                </button>
+                </wb-button>
               </div>
               <div class="border-t border-slate-200 p-4">
                 <pre class="code-block">&lt;wc-sidepanel position="right" overlay&gt;
   &lt;span slot="title"&gt;Settings&lt;/span&gt;
   &lt;p&gt;Panel content...&lt;/p&gt;
   &lt;div slot="footer"&gt;
-    &lt;button data-close&gt;Cancel&lt;/button&gt;
-    &lt;button&gt;Save&lt;/button&gt;
+    &lt;wb-button data-close&gt;Cancel&lt;/wb-button&gt;
+    &lt;wb-button&gt;Save&lt;/wb-button&gt;
   &lt;/div&gt;
 &lt;/wc-sidepanel&gt;</pre>
               </div>
@@ -448,40 +448,64 @@ WcToast.show({
             </div>
             <p class="text-slate-600 mb-6">Dropdown menu with keyboard navigation and positioning options.</p>
             
-            <div class="border border-slate-200 rounded-xl overflow-hidden">
-              <div class="p-6 bg-slate-50 flex flex-wrap gap-3">
+            <div class="border border-slate-200 rounded-xl">
+              <div class="p-6 bg-slate-50 flex flex-wrap gap-3 rounded-t-xl">
                 <wc-dropdown position="bottom-start">
-                  <button slot="trigger" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                  <wb-button slot="trigger" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
                     Actions
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </button>
-                  <button slot="item">Edit</button>
-                  <button slot="item">Duplicate</button>
-                  <button slot="item">Archive</button>
+                  </wb-button>
+                  <wb-button slot="item" class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Edit
+                  </wb-button>
+                  <wb-button slot="item" class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Duplicate
+                  </wb-button>
+                  <wb-button slot="item" class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                    Archive
+                  </wb-button>
                   <div slot="divider"></div>
-                  <button slot="item" class="text-red-600">Delete</button>
+                  <wb-button slot="item" class="flex items-center gap-2 text-red-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    Delete
+                  </wb-button>
                 </wc-dropdown>
 
                 <wc-dropdown position="bottom-end">
-                  <button slot="trigger" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
+                  <wb-button slot="trigger" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium hover:bg-slate-50 transition">
                     <wc-avatar src="https://i.pravatar.cc/32?u=1" size="xs"></wc-avatar>
                     Account
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </button>
-                  <a slot="item" href="#">Profile</a>
-                  <a slot="item" href="#">Settings</a>
-                  <a slot="item" href="#">Billing</a>
+                  </wb-button>
+                  <a slot="item" href="#" class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    Profile
+                  </a>
+                  <a slot="item" href="#" class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Settings
+                  </a>
+                  <a slot="item" href="#" class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                    Billing
+                  </a>
                   <div slot="divider"></div>
-                  <button slot="item">Sign out</button>
+                  <wb-button slot="item" class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign out
+                  </wb-button>
                 </wc-dropdown>
               </div>
-              <div class="border-t border-slate-200 p-4">
+              <div class="border-t border-slate-200 p-4 rounded-b-xl">
                 <pre class="code-block">&lt;wc-dropdown position="bottom-start"&gt;
-  &lt;button slot="trigger"&gt;Menu ▾&lt;/button&gt;
-  &lt;button slot="item"&gt;Edit&lt;/button&gt;
-  &lt;button slot="item"&gt;Delete&lt;/button&gt;
+  &lt;wb-button slot="trigger"&gt;Menu ▾&lt;/wb-button&gt;
+  &lt;wb-button slot="item"&gt;Edit&lt;/wb-button&gt;
+  &lt;wb-button slot="item"&gt;Delete&lt;/wb-button&gt;
   &lt;div slot="divider"&gt;&lt;/div&gt;
-  &lt;button slot="item"&gt;Archive&lt;/button&gt;
+  &lt;wb-button slot="item"&gt;Archive&lt;/wb-button&gt;
 &lt;/wc-dropdown&gt;</pre>
               </div>
             </div>
@@ -495,36 +519,36 @@ WcToast.show({
             </div>
             <p class="text-slate-600 mb-6">Simple tooltips with positioning and delay options.</p>
             
-            <div class="border border-slate-200 rounded-xl overflow-hidden">
-              <div class="p-6 bg-slate-50 flex flex-wrap gap-4 items-center justify-center">
+            <div class="border border-slate-200 rounded-xl">
+              <div class="p-6 bg-slate-50 flex flex-wrap gap-4 items-center justify-center rounded-t-xl">
                 <wc-tooltip position="top">
-                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                  <wb-button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
-                  </button>
+                  </wb-button>
                   <span slot="content">Top tooltip</span>
                 </wc-tooltip>
                 <wc-tooltip position="right">
-                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                  <wb-button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  </button>
+                  </wb-button>
                   <span slot="content">Right tooltip</span>
                 </wc-tooltip>
                 <wc-tooltip position="bottom">
-                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                  <wb-button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </button>
+                  </wb-button>
                   <span slot="content">Bottom tooltip</span>
                 </wc-tooltip>
                 <wc-tooltip position="left">
-                  <button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                  <wb-button class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                  </button>
+                  </wb-button>
                   <span slot="content">Left tooltip</span>
                 </wc-tooltip>
               </div>
               <div class="border-t border-slate-200 p-4">
                 <pre class="code-block">&lt;wc-tooltip position="top"&gt;
-  &lt;button&gt;Hover me&lt;/button&gt;
+  &lt;wb-button&gt;Hover me&lt;/wb-button&gt;
   &lt;span slot="content"&gt;Tooltip text&lt;/span&gt;
 &lt;/wc-tooltip&gt;</pre>
               </div>
@@ -613,8 +637,8 @@ WcToast.show({
                   </div>
                   <wc-skeleton variant="rect" height="160px"></wc-skeleton>
                   <div class="flex gap-2">
-                    <wc-skeleton variant="button"></wc-skeleton>
-                    <wc-skeleton variant="button"></wc-skeleton>
+                    <wc-skeleton variant="wb-button"></wc-skeleton>
+                    <wc-skeleton variant="wb-button"></wc-skeleton>
                   </div>
                 </div>
               </div>
@@ -622,7 +646,7 @@ WcToast.show({
                 <pre class="code-block">&lt;wc-skeleton variant="avatar"&gt;&lt;/wc-skeleton&gt;
 &lt;wc-skeleton variant="text" width="60%"&gt;&lt;/wc-skeleton&gt;
 &lt;wc-skeleton variant="rect" height="200px"&gt;&lt;/wc-skeleton&gt;
-&lt;wc-skeleton variant="button"&gt;&lt;/wc-skeleton&gt;</pre>
+&lt;wc-skeleton variant="wb-button"&gt;&lt;/wc-skeleton&gt;</pre>
               </div>
             </div>
           </section>
@@ -784,10 +808,10 @@ WcToast.show({
                   </div>
                 </div>
                 <!-- Button with spinner -->
-                <button class="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium opacity-80 cursor-wait">
+                <wb-button class="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium opacity-80 cursor-wait">
                   <wc-spinner variant="white" size="sm"></wc-spinner>
                   Loading...
-                </button>
+                </wb-button>
               </div>
               <div class="border-t border-slate-200 p-4">
                 <pre class="code-block">&lt;wc-spinner&gt;&lt;/wc-spinner&gt;
@@ -836,8 +860,8 @@ WcToast.show({
         </div>
       </div>
       <div slot="footer" class="flex justify-end gap-3">
-        <button data-close class="px-4 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-50 transition">Cancel</button>
-        <button class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Save</button>
+        <wb-button data-close class="px-4 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-50 transition">Cancel</wb-button>
+        <wb-button class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Save</wb-button>
       </div>
     </wc-sidepanel>
 

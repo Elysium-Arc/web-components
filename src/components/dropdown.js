@@ -11,6 +11,7 @@ export class WcDropdown extends HTMLElement {
     this._handleKeydown = this._handleKeydown.bind(this);
     this._handleClickOutside = this._handleClickOutside.bind(this);
     this._handleItemClick = this._handleItemClick.bind(this);
+    this._updatePosition = this._updatePosition.bind(this);
 
     const shadow = this.attachShadow({ mode: 'open' });
     shadow.innerHTML = `
@@ -25,8 +26,8 @@ export class WcDropdown extends HTMLElement {
         }
 
         .menu {
-          position: absolute;
-          z-index: 1000;
+          position: fixed;
+          z-index: 9999;
           min-width: 160px;
           padding: 0.25rem 0;
           background: white;
@@ -35,44 +36,16 @@ export class WcDropdown extends HTMLElement {
           box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
           opacity: 0;
           visibility: hidden;
-          transform: scale(0.95) translateY(-4px);
+          transform: scale(0.95);
           transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
-          transform-origin: top left;
+          pointer-events: none;
         }
 
         :host([open]) .menu {
           opacity: 1;
           visibility: visible;
-          transform: scale(1) translateY(0);
-        }
-
-        /* Positions */
-        :host([position="bottom-start"]) .menu,
-        :host(:not([position])) .menu {
-          top: 100%;
-          left: 0;
-          margin-top: 0.25rem;
-        }
-
-        :host([position="bottom-end"]) .menu {
-          top: 100%;
-          right: 0;
-          margin-top: 0.25rem;
-          transform-origin: top right;
-        }
-
-        :host([position="top-start"]) .menu {
-          bottom: 100%;
-          left: 0;
-          margin-bottom: 0.25rem;
-          transform-origin: bottom left;
-        }
-
-        :host([position="top-end"]) .menu {
-          bottom: 100%;
-          right: 0;
-          margin-bottom: 0.25rem;
-          transform-origin: bottom right;
+          transform: scale(1);
+          pointer-events: auto;
         }
 
         ::slotted([slot="item"]) {
@@ -131,15 +104,22 @@ export class WcDropdown extends HTMLElement {
     this.removeEventListener('keydown', this._handleKeydown);
     this.removeEventListener('click', this._handleItemClick);
     document.removeEventListener('click', this._handleClickOutside);
+    window.removeEventListener('scroll', this._updatePosition, true);
+    window.removeEventListener('resize', this._updatePosition);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'open') {
       if (newValue !== null) {
+        this._updatePosition();
         document.addEventListener('click', this._handleClickOutside);
+        window.addEventListener('scroll', this._updatePosition, true);
+        window.addEventListener('resize', this._updatePosition);
         this._focusFirstItem();
       } else {
         document.removeEventListener('click', this._handleClickOutside);
+        window.removeEventListener('scroll', this._updatePosition, true);
+        window.removeEventListener('resize', this._updatePosition);
       }
     }
   }
@@ -165,6 +145,12 @@ export class WcDropdown extends HTMLElement {
   }
 
   show() {
+    // Close other open dropdowns first
+    document.querySelectorAll('wc-dropdown[open]').forEach(dropdown => {
+      if (dropdown !== this) {
+        dropdown.hide();
+      }
+    });
     this.open = true;
     this.dispatchEvent(new CustomEvent('open', { bubbles: true }));
   }
@@ -179,6 +165,43 @@ export class WcDropdown extends HTMLElement {
       this.hide();
     } else {
       this.show();
+    }
+  }
+
+  _updatePosition() {
+    const triggerEl = this._trigger;
+    const menuEl = this._menu;
+    const rect = triggerEl.getBoundingClientRect();
+    const position = this.position;
+    const gap = 4;
+
+    // Reset transform for measurement
+    const isOpen = this.open;
+    
+    if (position === 'bottom-start' || position === 'bottom') {
+      menuEl.style.top = `${rect.bottom + gap}px`;
+      menuEl.style.left = `${rect.left}px`;
+      menuEl.style.right = 'auto';
+      menuEl.style.bottom = 'auto';
+      menuEl.style.transformOrigin = 'top left';
+    } else if (position === 'bottom-end') {
+      menuEl.style.top = `${rect.bottom + gap}px`;
+      menuEl.style.right = `${window.innerWidth - rect.right}px`;
+      menuEl.style.left = 'auto';
+      menuEl.style.bottom = 'auto';
+      menuEl.style.transformOrigin = 'top right';
+    } else if (position === 'top-start' || position === 'top') {
+      menuEl.style.bottom = `${window.innerHeight - rect.top + gap}px`;
+      menuEl.style.left = `${rect.left}px`;
+      menuEl.style.right = 'auto';
+      menuEl.style.top = 'auto';
+      menuEl.style.transformOrigin = 'bottom left';
+    } else if (position === 'top-end') {
+      menuEl.style.bottom = `${window.innerHeight - rect.top + gap}px`;
+      menuEl.style.right = `${window.innerWidth - rect.right}px`;
+      menuEl.style.left = 'auto';
+      menuEl.style.top = 'auto';
+      menuEl.style.transformOrigin = 'bottom right';
     }
   }
 

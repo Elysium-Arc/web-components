@@ -18,13 +18,16 @@ export class WcSidepanel extends HTMLElement {
       <style>
         :host {
           display: block;
+          isolation: isolate;
+          position: relative;
+          z-index: 9998;
         }
 
         .overlay {
           position: fixed;
           inset: 0;
           background: rgba(0, 0, 0, 0.5);
-          z-index: 99998;
+          z-index: 1;
           opacity: 0;
           visibility: hidden;
           transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -44,7 +47,7 @@ export class WcSidepanel extends HTMLElement {
           position: fixed;
           top: 0;
           bottom: 0;
-          z-index: 99999;
+          z-index: 2;
           display: flex;
           flex-direction: column;
           width: var(--wc-sidepanel-width, 320px);
