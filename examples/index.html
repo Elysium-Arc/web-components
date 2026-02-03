@@ -179,12 +179,123 @@
           </div>
         </div>
       </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">Toast / Notifications</h2>
+        <div class="flex flex-wrap gap-3">
+          <button id="toast-success" class="inline-flex items-center justify-center rounded-md border border-green-300 bg-green-50 px-4 py-2 text-sm font-medium text-green-700 shadow-sm transition hover:bg-green-100">
+            Success Toast
+          </button>
+          <button id="toast-error" class="inline-flex items-center justify-center rounded-md border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 shadow-sm transition hover:bg-red-100">
+            Error Toast
+          </button>
+          <button id="toast-warning" class="inline-flex items-center justify-center rounded-md border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700 shadow-sm transition hover:bg-amber-100">
+            Warning Toast
+          </button>
+          <button id="toast-info" class="inline-flex items-center justify-center rounded-md border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm transition hover:bg-blue-100">
+            Info Toast
+          </button>
+          <button id="toast-action" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+            Toast with Actions
+          </button>
+          <button id="toast-persistent" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-slate-100">
+            Persistent Toast
+          </button>
+          <button id="toast-spam" class="inline-flex items-center justify-center rounded-md border border-purple-300 bg-purple-50 px-4 py-2 text-sm font-medium text-purple-700 shadow-sm transition hover:bg-purple-100">
+            🔥 Spam 10 Toasts (Stacking Demo)
+          </button>
+        </div>
+        
+        <div class="mt-2">
+          <p class="text-sm text-slate-500 mb-2">Declarative Toast</p>
+          <wc-toast type="info" duration="0" dismissible="false">
+            <span slot="title">Declarative Example</span>
+            This toast is defined directly in HTML and won't auto-dismiss.
+          </wc-toast>
+        </div>
+      </section>
     </div>
 
+    <wc-toast-container position="top-right" max="5"></wc-toast-container>
+
     <script type="module">
-      import { registerAll } from "../src/index.js";
+      import { registerAll, WcToast } from "../src/index.js";
 
       registerAll();
+
+      document.getElementById('toast-success').addEventListener('click', () => {
+        WcToast.show({
+          type: 'success',
+          title: 'Success!',
+          message: 'Your changes have been saved successfully.'
+        });
+      });
+
+      document.getElementById('toast-error').addEventListener('click', () => {
+        WcToast.show({
+          type: 'error',
+          title: 'Error',
+          message: 'Something went wrong. Please try again.'
+        });
+      });
+
+      document.getElementById('toast-warning').addEventListener('click', () => {
+        WcToast.show({
+          type: 'warning',
+          title: 'Warning',
+          message: 'Your session will expire in 5 minutes.'
+        });
+      });
+
+      document.getElementById('toast-info').addEventListener('click', () => {
+        WcToast.show({
+          type: 'info',
+          title: 'New Update Available',
+          message: 'A new version is available. Refresh to update.'
+        });
+      });
+
+      document.getElementById('toast-action').addEventListener('click', () => {
+        WcToast.show({
+          type: 'info',
+          title: 'Confirm Action',
+          message: 'Are you sure you want to proceed?',
+          duration: 0,
+          actions: [
+            { 
+              label: 'Confirm', 
+              class: 'bg-blue-500 text-white border-0 hover:bg-blue-600',
+              onClick: () => alert('Confirmed!')
+            },
+            { 
+              label: 'Cancel', 
+              class: 'bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200'
+            }
+          ]
+        });
+      });
+
+      document.getElementById('toast-persistent').addEventListener('click', () => {
+        WcToast.show({
+          type: 'warning',
+          title: 'Important Notice',
+          message: 'This notification will not auto-dismiss.',
+          duration: 0
+        });
+      });
+
+      document.getElementById('toast-spam').addEventListener('click', () => {
+        const types = ['success', 'error', 'warning', 'info'];
+        for (let i = 1; i <= 10; i++) {
+          setTimeout(() => {
+            WcToast.show({
+              type: types[(i - 1) % 4],
+              title: `Notification #${i}`,
+              message: `This is stacked toast number ${i}. Old ones get removed.`
+            });
+          }, i * 100);
+        }
+      });
     </script>
   </body>
 </html>

@@ -176,6 +176,83 @@ Includes "Select All / Deselect All" button and selection count.
 | `label-field` | JSON field for option label, supports dot notation (default: "label") |
 | `min-chars` | Minimum characters before search (default: 1) |
 
+### Toast / Notifications
+
+Stackable toast notifications with types, actions, and full customization.
+
+#### Programmatic API
+
+```javascript
+import { WcToast } from 'bare-components';
+
+// Simple toast
+WcToast.show({
+  type: 'success',
+  title: 'Success!',
+  message: 'Your changes have been saved.'
+});
+
+// Toast with actions
+WcToast.show({
+  type: 'warning',
+  title: 'Confirm',
+  message: 'Are you sure?',
+  duration: 0, // Don't auto-dismiss
+  actions: [
+    { 
+      label: 'Confirm', 
+      class: 'bg-blue-500 text-white',
+      onClick: () => console.log('Confirmed!')
+    },
+    { label: 'Cancel' }
+  ]
+});
+```
+
+#### Declarative HTML
+
+```html
+<!-- Container for positioning (max=5 limits visible toasts) -->
+<wc-toast-container position="top-right" max="5"></wc-toast-container>
+
+<!-- Individual toast -->
+<wc-toast type="success" duration="5000">
+  <span slot="title">File Uploaded</span>
+  Your file has been uploaded successfully.
+  <button slot="action" data-dismiss>View File</button>
+</wc-toast>
+```
+
+#### Toast Options
+
+| Option | Description |
+|--------|-------------|
+| `type` | `success`, `error`, `warning`, `info` |
+| `title` | Toast title text |
+| `message` | Toast message text |
+| `duration` | Auto-dismiss time in ms (default: 5000, 0 = never) |
+| `dismissible` | Show close button (default: true) |
+| `actions` | Array of action buttons |
+| `container` | Position: `top-right`, `top-left`, `top-center`, `bottom-right`, `bottom-left`, `bottom-center` |
+
+#### Container Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `position` | Where toasts appear (default: `top-right`) |
+| `max` | Maximum visible toasts (default: 5). Old toasts are dismissed when limit is exceeded. |
+
+#### Styling Parts
+
+```css
+wc-toast::part(icon) { }
+wc-toast::part(content) { }
+wc-toast::part(title) { }
+wc-toast::part(message) { }
+wc-toast::part(actions) { }
+wc-toast::part(close) { }
+```
+
 ## Styling
 
 Components use Shadow DOM but expose parts for styling:
@@ -211,6 +288,7 @@ wc-accordion-item:not(:defined) [slot="content"] {
 | `wc-tabs` | `change` | Fired when tab changes |
 | `wc-dialog` | `open` | Fired when dialog opens |
 | `wc-dialog` | `close` | Fired when dialog closes |
+| `wc-toast` | `dismiss` | Fired when toast is dismissed |
 
 ## Browser Support
 
