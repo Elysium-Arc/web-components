@@ -20,49 +20,46 @@ export class WcDialog extends HTMLElement {
     shadow.innerHTML = `
       <style>
         :host {
-          display: contents;
+          display: inline;
         }
         
-        :host([open]) {
-          display: block;
+        .overlay {
+          display: none;
           position: fixed;
           inset: 0;
-          z-index: 9997;
-          isolation: isolate;
+          z-index: 99999;
+        }
+        
+        :host([open]) .overlay {
+          display: block;
         }
         
         .backdrop {
-          display: none;
-          position: fixed;
+          position: absolute;
           inset: 0;
           background: rgba(0, 0, 0, 0.5);
-          z-index: 1;
         }
         
         .content-wrapper {
-          display: none;
-          position: fixed;
+          position: absolute;
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
-          z-index: 2;
           max-width: 90vw;
           max-height: 90vh;
           overflow: auto;
         }
-        
-        :host([open]) .backdrop,
-        :host([open]) .content-wrapper {
-          display: block;
-        }
       </style>
       <slot name="trigger"></slot>
-      <div class="backdrop" part="backdrop"></div>
-      <div class="content-wrapper" part="content-wrapper">
-        <slot name="content"></slot>
+      <div class="overlay" part="overlay">
+        <div class="backdrop" part="backdrop"></div>
+        <div class="content-wrapper" part="content-wrapper">
+          <slot name="content"></slot>
+        </div>
       </div>
     `;
 
+    this._overlay = shadow.querySelector('.overlay');
     this._backdrop = shadow.querySelector('.backdrop');
     this._contentWrapper = shadow.querySelector('.content-wrapper');
   }
@@ -126,6 +123,9 @@ export class WcDialog extends HTMLElement {
       if (!this._content.hasAttribute('role')) {
         this._content.setAttribute('role', 'dialog');
       }
+      if (!this._content.hasAttribute('aria-modal')) {
+        this._content.setAttribute('aria-modal', 'true');
+      }
       if (!this._content.hasAttribute('tabindex')) {
         this._content.setAttribute('tabindex', '-1');
       }
@@ -133,6 +133,7 @@ export class WcDialog extends HTMLElement {
 
     if (this._trigger && this._content) {
       this._trigger.setAttribute('aria-controls', this._content.id);
+      this._trigger.setAttribute('aria-haspopup', 'dialog');
     }
 
     if (this._trigger) {
@@ -169,13 +170,6 @@ export class WcDialog extends HTMLElement {
     
     if (this._content) {
       this._content.setAttribute(DIALOG_STATE_ATTR, isOpen ? 'open' : 'closed');
-      if (!isOpen && this._content.contains(document.activeElement)) {
-        if (this._trigger && typeof this._trigger.focus === 'function') {
-          this._trigger.focus();
-        } else if (document.activeElement && typeof document.activeElement.blur === 'function') {
-          document.activeElement.blur();
-        }
-      }
     }
 
     if (this._trigger) {
@@ -185,12 +179,17 @@ export class WcDialog extends HTMLElement {
 
     if (isOpen) {
       this._previouslyFocused = document.activeElement;
+      // Focus the content
+      requestAnimationFrame(() => {
+        if (this._content) {
+          this._content.focus();
+        }
+      });
       this.dispatchEvent(new CustomEvent('dialog-open', { bubbles: true }));
     } else {
+      // Return focus
       if (this._previouslyFocused && typeof this._previouslyFocused.focus === 'function') {
         this._previouslyFocused.focus();
-      } else if (this._trigger) {
-        this._trigger.focus();
       }
       this.dispatchEvent(new CustomEvent('dialog-close', { bubbles: true }));
     }
