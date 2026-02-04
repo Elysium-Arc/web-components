@@ -990,7 +990,7 @@ WcToast.show({
                 </div>
                 <wc-table id="demo-table-remote" 
                   src="https://jsonplaceholder.typicode.com/users" 
-                  auto-columns 
+                  columns="id,name,username,email,phone"
                   searchable
                   sortable 
                   hoverable
@@ -1172,10 +1172,15 @@ WcToast.show({
             email: `<span class="text-slate-600">${u.email}</span>`,
             role: roleBadge(u.role),
             status: statusBadge(u.status),
-            actions: `<div class="flex items-center justify-center gap-1">
-              <wc-button variant="ghost" size="sm">Edit</wc-button>
-              <wc-button variant="ghost" size="sm" style="--wc-button-hover-bg: #fef2f2; --wc-button-hover-color: #dc2626;">Delete</wc-button>
-            </div>`
+            actions: `<wc-dropdown position="bottom-end">
+              <wc-button slot="trigger" variant="ghost" size="sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg>
+              </wc-button>
+              <button slot="item">Edit</button>
+              <button slot="item">Duplicate</button>
+              <div slot="divider"></div>
+              <button slot="item" style="color: #dc2626;">Delete</button>
+            </wc-dropdown>`
           }));
 
           const deleteBtn = document.getElementById('table-delete-btn');

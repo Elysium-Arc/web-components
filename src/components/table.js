@@ -891,7 +891,13 @@ export class WcTable extends HTMLElement {
 
   _autoGenerateColumns(sampleRow) {
     return Object.keys(sampleRow)
-      .filter(key => !key.startsWith('_')) // Skip private fields
+      .filter(key => {
+        if (key.startsWith('_')) return false; // Skip private fields
+        const value = sampleRow[key];
+        // Skip objects and arrays (they'd display as [object Object])
+        if (value !== null && typeof value === 'object') return false;
+        return true;
+      })
       .map(key => ({
         key,
         label: this._formatLabel(key),
