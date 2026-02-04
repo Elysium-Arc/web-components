@@ -940,41 +940,53 @@ WcToast.show({
             </div>
 
             <!-- Simple Inline Columns -->
-            <h3 class="text-lg font-medium mb-4">Simple Usage (columns attribute)</h3>
+            <h3 class="text-lg font-medium mb-4">Declarative Data (HTML only, no JS)</h3>
             <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
               <div class="p-6 bg-slate-50">
-                <wc-table id="demo-table-simple" columns="name,email,role" sortable hoverable></wc-table>
+                <wc-table id="demo-table-simple" sortable hoverable>
+                  <wc-table-column key="name" label="Name" sortable></wc-table-column>
+                  <wc-table-column key="email" label="Email" sortable></wc-table-column>
+                  <wc-table-column key="role" label="Role"></wc-table-column>
+                  <wc-table-row name="John Doe" email="john@example.com" role="Admin"></wc-table-row>
+                  <wc-table-row name="Jane Smith" email="jane@example.com" role="User"></wc-table-row>
+                  <wc-table-row name="Bob Johnson" email="bob@example.com" role="Editor"></wc-table-row>
+                  <wc-table-row name="Alice Brown" email="alice@example.com" role="User"></wc-table-row>
+                  <wc-table-row name="Charlie Wilson" email="charlie@example.com" role="Moderator"></wc-table-row>
+                </wc-table>
               </div>
               <div class="border-t border-slate-200 p-4">
-                <pre class="code-block">&lt;!-- Simple: Just use columns attribute with comma-separated keys --&gt;
-&lt;wc-table columns="name,email,role" sortable hoverable&gt;&lt;/wc-table&gt;
-
-&lt;script&gt;
-  document.querySelector('wc-table').data = [
-    { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
-    { name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-  ];
-&lt;/script&gt;</pre>
+                <pre class="code-block">&lt;!-- Fully declarative: no JavaScript needed! --&gt;
+&lt;wc-table sortable hoverable&gt;
+  &lt;wc-table-column key="name" label="Name" sortable&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="email" label="Email" sortable&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="role" label="Role"&gt;&lt;/wc-table-column&gt;
+  
+  &lt;wc-table-row name="John Doe" email="john@example.com" role="Admin"&gt;&lt;/wc-table-row&gt;
+  &lt;wc-table-row name="Jane Smith" email="jane@example.com" role="User"&gt;&lt;/wc-table-row&gt;
+  &lt;wc-table-row name="Bob Johnson" email="bob@example.com" role="Editor"&gt;&lt;/wc-table-row&gt;
+&lt;/wc-table&gt;</pre>
               </div>
             </div>
 
             <!-- Auto Columns from Data -->
-            <h3 class="text-lg font-medium mb-4">Auto Columns (from data keys)</h3>
+            <h3 class="text-lg font-medium mb-4">Auto Columns (from row attributes)</h3>
             <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
               <div class="p-6 bg-slate-50">
-                <wc-table id="demo-table-auto" auto-columns sortable hoverable></wc-table>
+                <wc-table id="demo-table-auto" sortable hoverable>
+                  <wc-table-row id="1" name="Alice Chen" department="Engineering" salary="$95,000"></wc-table-row>
+                  <wc-table-row id="2" name="Bob Martinez" department="Design" salary="$85,000"></wc-table-row>
+                  <wc-table-row id="3" name="Carol White" department="Marketing" salary="$75,000"></wc-table-row>
+                  <wc-table-row id="4" name="David Kim" department="Engineering" salary="$105,000"></wc-table-row>
+                  <wc-table-row id="5" name="Eva Johnson" department="Sales" salary="$80,000"></wc-table-row>
+                </wc-table>
               </div>
               <div class="border-t border-slate-200 p-4">
-                <pre class="code-block">&lt;!-- Even simpler: auto-columns generates columns from data keys --&gt;
-&lt;wc-table auto-columns sortable hoverable&gt;&lt;/wc-table&gt;
-
-&lt;script&gt;
-  // Columns will be auto-generated: Id, Name, Department, Salary
-  document.querySelector('wc-table').data = [
-    { id: 1, name: 'Alice', department: 'Engineering', salary: 95000 },
-    { id: 2, name: 'Bob', department: 'Design', salary: 85000 },
-  ];
-&lt;/script&gt;</pre>
+                <pre class="code-block">&lt;!-- No columns needed - auto-generated from row attributes --&gt;
+&lt;wc-table sortable hoverable&gt;
+  &lt;wc-table-row id="1" name="Alice Chen" department="Engineering" salary="$95,000"&gt;&lt;/wc-table-row&gt;
+  &lt;wc-table-row id="2" name="Bob Martinez" department="Design" salary="$85,000"&gt;&lt;/wc-table-row&gt;
+  &lt;wc-table-row id="3" name="Carol White" department="Marketing" salary="$75,000"&gt;&lt;/wc-table-row&gt;
+&lt;/wc-table&gt;</pre>
               </div>
             </div>
 
@@ -1274,30 +1286,6 @@ WcToast.show({
           document.getElementById('table-toggle-loading').addEventListener('click', () => {
             ordersTable.loading = !ordersTable.loading;
           });
-        }
-
-        // Simple table with columns attribute
-        const simpleTable = document.getElementById('demo-table-simple');
-        if (simpleTable) {
-          simpleTable.data = [
-            { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
-            { name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-            { name: 'Bob Johnson', email: 'bob@example.com', role: 'Editor' },
-            { name: 'Alice Brown', email: 'alice@example.com', role: 'User' },
-            { name: 'Charlie Wilson', email: 'charlie@example.com', role: 'Moderator' },
-          ];
-        }
-
-        // Auto columns table
-        const autoTable = document.getElementById('demo-table-auto');
-        if (autoTable) {
-          autoTable.data = [
-            { id: 1, name: 'Alice Chen', department: 'Engineering', salary: 95000 },
-            { id: 2, name: 'Bob Martinez', department: 'Design', salary: 85000 },
-            { id: 3, name: 'Carol White', department: 'Marketing', salary: 75000 },
-            { id: 4, name: 'David Kim', department: 'Engineering', salary: 105000 },
-            { id: 5, name: 'Eva Johnson', department: 'Sales', salary: 80000 },
-          ];
         }
 
         // Remote data table

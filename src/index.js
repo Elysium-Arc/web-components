@@ -36,7 +36,7 @@ export { WcBadge } from './components/badge.js';
 export { WcAlert } from './components/alert.js';
 export { WcAvatar } from './components/avatar.js';
 export { WcSpinner } from './components/spinner.js';
-export { WcTable, WcTableColumn } from './components/table.js';
+export { WcTable, WcTableColumn, WcTableRow, WcTableCell } from './components/table.js';
 
 export function registerAll() {
   defineWcButton();

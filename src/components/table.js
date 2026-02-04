@@ -2,6 +2,7 @@ export class WcTable extends HTMLElement {
   static get observedAttributes() {
     return [
       'src',
+      'data',
       'columns',
       'selectable',
       'select-mode',
@@ -64,7 +65,6 @@ export class WcTable extends HTMLElement {
           position: relative;
           border: 1px solid #e2e8f0;
           border-radius: 0.5rem;
-          overflow: hidden;
           background: white;
         }
 
@@ -522,6 +522,7 @@ export class WcTable extends HTMLElement {
     // Use requestAnimationFrame to ensure slotted content is available
     requestAnimationFrame(() => {
       this._parseSlotColumns();
+      this._parseSlotRows();
       
       // If we have a src attribute, fetch remote data
       if (this.src) {
@@ -543,6 +544,9 @@ export class WcTable extends HTMLElement {
 
     if (name === 'src' && newValue !== oldValue) {
       this.reload();
+    } else if (name === 'data') {
+      this._parseDataAttribute();
+      this._render();
     } else if (name === 'columns') {
       this._parseColumnsAttribute();
       this._render();
@@ -835,7 +839,24 @@ export class WcTable extends HTMLElement {
     this._errorState.hidden = true;
   }
 
-  // ==================== Column Parsing ====================
+  // ==================== Data & Column Parsing ====================
+
+  _parseDataAttribute() {
+    const dataAttr = this.getAttribute('data');
+    if (dataAttr) {
+      try {
+        const parsed = JSON.parse(dataAttr);
+        this._data = Array.isArray(parsed) ? parsed : [];
+        
+        // Auto-generate columns if needed
+        if (this.hasAttribute('auto-columns') && this._columns.length === 0 && this._data.length > 0) {
+          this._columns = this._autoGenerateColumns(this._data[0]);
+        }
+      } catch (e) {
+        console.warn('WcTable: Invalid JSON in data attribute', e);
+      }
+    }
+  }
 
   _parseColumnsAttribute() {
     const columnsAttr = this.getAttribute('columns');
@@ -866,6 +887,56 @@ export class WcTable extends HTMLElement {
         template: col.innerHTML.trim() || null,
         format: col.getAttribute('format') || null,
       }));
+    }
+  }
+
+  _parseSlotRows() {
+    // Try to get slotted row elements
+    let slottedRows = this._slot.assignedElements().filter(
+      (el) => el.tagName.toUpperCase() === 'WC-TABLE-ROW'
+    );
+
+    // Fallback: check direct children if slot hasn't distributed yet
+    if (slottedRows.length === 0) {
+      slottedRows = Array.from(this.querySelectorAll(':scope > wc-table-row'));
+    }
+
+    if (slottedRows.length > 0) {
+      // If no columns defined yet, auto-generate from first row's attributes
+      if (this._columns.length === 0) {
+        const firstRow = slottedRows[0];
+        const attrs = Array.from(firstRow.attributes)
+          .filter(attr => !['id', 'class', 'style', 'slot'].includes(attr.name))
+          .map(attr => attr.name);
+        
+        if (attrs.length > 0) {
+          this._columns = attrs.map(key => ({
+            key,
+            label: this._formatLabel(key),
+            sortable: this.sortable,
+          }));
+        }
+      }
+
+      // Parse row data from attributes
+      this._data = slottedRows.map((row) => {
+        const rowData = {};
+        // Get data from attributes
+        Array.from(row.attributes).forEach(attr => {
+          if (!['id', 'class', 'style', 'slot'].includes(attr.name)) {
+            rowData[attr.name] = attr.value;
+          }
+        });
+        // Also check for nested wc-table-cell elements
+        const cells = row.querySelectorAll('wc-table-cell');
+        cells.forEach(cell => {
+          const key = cell.getAttribute('key');
+          if (key) {
+            rowData[key] = cell.innerHTML.trim();
+          }
+        });
+        return rowData;
+      });
     }
   }
 
@@ -915,6 +986,7 @@ export class WcTable extends HTMLElement {
 
   _handleSlotChange() {
     this._parseSlotColumns();
+    this._parseSlotRows();
     this._render();
   }
 
@@ -1577,11 +1649,56 @@ export class WcTableColumn extends HTMLElement {
   }
 }
 
+/**
+ * Row element for declarative data definition
+ * Use attributes to define row data: <wc-table-row name="John" email="john@example.com">
+ */
+export class WcTableRow extends HTMLElement {
+  constructor() {
+    super();
+    this.style.display = 'none';
+  }
+
+  connectedCallback() {
+    // Notify parent table to re-parse rows
+    const table = this.closest('wc-table');
+    if (table && table._initialized) {
+      table._parseSlotRows();
+      table._render();
+    }
+  }
+}
+
+/**
+ * Cell element for declarative data with HTML content
+ * <wc-table-row><wc-table-cell key="actions"><button>Edit</button></wc-table-cell></wc-table-row>
+ */
+export class WcTableCell extends HTMLElement {
+  constructor() {
+    super();
+    this.style.display = 'none';
+  }
+
+  get key() {
+    return this.getAttribute('key') || '';
+  }
+
+  set key(value) {
+    this.setAttribute('key', value);
+  }
+}
+
 export function defineWcTable() {
   if (!customElements.get('wc-table')) {
     customElements.define('wc-table', WcTable);
   }
   if (!customElements.get('wc-table-column')) {
     customElements.define('wc-table-column', WcTableColumn);
+  }
+  if (!customElements.get('wc-table-row')) {
+    customElements.define('wc-table-row', WcTableRow);
+  }
+  if (!customElements.get('wc-table-cell')) {
+    customElements.define('wc-table-cell', WcTableCell);
   }
 }
