@@ -115,6 +115,7 @@
             <a href="#alert" class="nav-link block py-1.5 text-sm text-slate-600">Alert</a>
             <a href="#avatar" class="nav-link block py-1.5 text-sm text-slate-600">Avatar</a>
             <a href="#spinner" class="nav-link block py-1.5 text-sm text-slate-600">Spinner</a>
+            <a href="#table" class="nav-link block py-1.5 text-sm text-slate-600">Table</a>
           </nav>
         </aside>
 
@@ -822,6 +823,237 @@ WcToast.show({
             </div>
           </section>
 
+          <!-- Table -->
+          <section id="table" class="component-section">
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-2xl font-semibold">Table</h2>
+              <wc-badge variant="primary" size="sm">Feature-rich</wc-badge>
+            </div>
+            <p class="text-slate-600 mb-6">Advanced data table with sorting, searching, row selection, and pagination.</p>
+            
+            <!-- Main Demo: Users Table -->
+            <h3 class="text-lg font-medium mb-4">User Management</h3>
+            <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
+              <div class="p-6 bg-slate-50">
+                <div class="mb-4 flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <wc-button id="table-delete-btn" disabled class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                      Delete Selected
+                    </wc-button>
+                    <wc-button id="table-export-btn" class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                      Export
+                    </wc-button>
+                  </div>
+                  <span id="table-selection-count" class="text-sm text-slate-500"></span>
+                </div>
+                <wc-table id="demo-table" selectable searchable sortable hoverable page-size="5">
+                  <wc-table-column key="id" label="ID" sortable width="70px"></wc-table-column>
+                  <wc-table-column key="user" label="User" sortable></wc-table-column>
+                  <wc-table-column key="email" label="Email" sortable></wc-table-column>
+                  <wc-table-column key="role" label="Role" sortable></wc-table-column>
+                  <wc-table-column key="status" label="Status" align="center"></wc-table-column>
+                  <wc-table-column key="actions" label="Actions" align="center" width="100px"></wc-table-column>
+                </wc-table>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-table id="users-table" selectable sortable hoverable page-size="5"&gt;
+  &lt;wc-table-column key="id" label="ID" sortable width="70px"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="user" label="User" sortable&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="email" label="Email" sortable&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="role" label="Role"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="status" label="Status" align="center"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="actions" label="Actions" align="center"&gt;&lt;/wc-table-column&gt;
+&lt;/wc-table&gt;
+
+&lt;script&gt;
+  const table = document.getElementById('users-table');
+  table.data = [
+    { 
+      id: 1, 
+      user: '&lt;div class="flex items-center gap-3"&gt;&lt;wc-avatar ...&gt;...&lt;/wc-avatar&gt;&lt;span&gt;John Doe&lt;/span&gt;&lt;/div&gt;',
+      email: 'john@example.com',
+      role: 'Admin',
+      status: '&lt;wc-badge variant="success"&gt;Active&lt;/wc-badge&gt;',
+      actions: '&lt;button&gt;Edit&lt;/button&gt;'
+    }
+  ];
+  
+  table.addEventListener('selection-change', (e) =&gt; {
+    console.log('Selected:', e.detail.selectedIds);
+  });
+&lt;/script&gt;</pre>
+              </div>
+            </div>
+
+            <!-- Products Table: Striped & Compact -->
+            <h3 class="text-lg font-medium mb-4">Products Table (Striped & Compact)</h3>
+            <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
+              <div class="p-6 bg-slate-50">
+                <wc-table id="demo-table-products" striped hoverable compact page-size="5">
+                  <wc-table-column key="product" label="Product" sortable></wc-table-column>
+                  <wc-table-column key="category" label="Category" sortable></wc-table-column>
+                  <wc-table-column key="price" label="Price" align="right" sortable></wc-table-column>
+                  <wc-table-column key="stock" label="Stock" align="center" sortable></wc-table-column>
+                  <wc-table-column key="rating" label="Rating" align="center"></wc-table-column>
+                </wc-table>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-table striped hoverable compact page-size="5"&gt;
+  &lt;wc-table-column key="product" label="Product" sortable&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="price" label="Price" align="right" sortable&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="stock" label="Stock" align="center"&gt;&lt;/wc-table-column&gt;
+&lt;/wc-table&gt;</pre>
+              </div>
+            </div>
+
+            <!-- Orders Table: Bordered with Loading State -->
+            <h3 class="text-lg font-medium mb-4">Orders Table (Bordered)</h3>
+            <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
+              <div class="p-6 bg-slate-50">
+                <div class="mb-4">
+                  <wc-button id="table-toggle-loading" class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Toggle Loading
+                  </wc-button>
+                </div>
+                <wc-table id="demo-table-orders" bordered hoverable page-size="4">
+                  <wc-table-column key="orderId" label="Order ID" sortable width="120px"></wc-table-column>
+                  <wc-table-column key="customer" label="Customer" sortable></wc-table-column>
+                  <wc-table-column key="date" label="Date" sortable></wc-table-column>
+                  <wc-table-column key="total" label="Total" align="right" sortable></wc-table-column>
+                  <wc-table-column key="status" label="Status" align="center"></wc-table-column>
+                </wc-table>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;wc-table bordered hoverable loading&gt;
+  ...
+&lt;/wc-table&gt;
+
+&lt;!-- Toggle loading state --&gt;
+&lt;script&gt;
+  table.loading = true;  // Show loading overlay
+  table.loading = false; // Hide loading overlay
+&lt;/script&gt;</pre>
+              </div>
+            </div>
+
+            <!-- Simple Inline Columns -->
+            <h3 class="text-lg font-medium mb-4">Simple Usage (columns attribute)</h3>
+            <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
+              <div class="p-6 bg-slate-50">
+                <wc-table id="demo-table-simple" columns="name,email,role" sortable hoverable></wc-table>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;!-- Simple: Just use columns attribute with comma-separated keys --&gt;
+&lt;wc-table columns="name,email,role" sortable hoverable&gt;&lt;/wc-table&gt;
+
+&lt;script&gt;
+  document.querySelector('wc-table').data = [
+    { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
+    { name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
+  ];
+&lt;/script&gt;</pre>
+              </div>
+            </div>
+
+            <!-- Auto Columns from Data -->
+            <h3 class="text-lg font-medium mb-4">Auto Columns (from data keys)</h3>
+            <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
+              <div class="p-6 bg-slate-50">
+                <wc-table id="demo-table-auto" auto-columns sortable hoverable></wc-table>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;!-- Even simpler: auto-columns generates columns from data keys --&gt;
+&lt;wc-table auto-columns sortable hoverable&gt;&lt;/wc-table&gt;
+
+&lt;script&gt;
+  // Columns will be auto-generated: Id, Name, Department, Salary
+  document.querySelector('wc-table').data = [
+    { id: 1, name: 'Alice', department: 'Engineering', salary: 95000 },
+    { id: 2, name: 'Bob', department: 'Design', salary: 85000 },
+  ];
+&lt;/script&gt;</pre>
+              </div>
+            </div>
+
+            <!-- Remote Data -->
+            <h3 class="text-lg font-medium mb-4">Remote Data (fetch from URL)</h3>
+            <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
+              <div class="p-6 bg-slate-50">
+                <div class="mb-4 flex gap-2">
+                  <wc-button id="table-reload-btn" class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Reload Data
+                  </wc-button>
+                </div>
+                <wc-table id="demo-table-remote" 
+                  src="https://jsonplaceholder.typicode.com/users" 
+                  auto-columns 
+                  searchable
+                  sortable 
+                  hoverable
+                  page-size="5">
+                </wc-table>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;!-- Remote data: Just set src attribute! --&gt;
+&lt;wc-table 
+  src="https://api.example.com/users" 
+  auto-columns
+  searchable
+  sortable 
+  page-size="10"&gt;
+&lt;/wc-table&gt;
+
+&lt;!-- With custom columns --&gt;
+&lt;wc-table src="https://api.example.com/users" columns="id,name,email" searchable&gt;
+&lt;/wc-table&gt;
+
+&lt;!-- Reload data programmatically --&gt;
+&lt;script&gt;
+  const table = document.querySelector('wc-table');
+  
+  // Listen to events
+  table.addEventListener('load', (e) =&gt; console.log('Loaded:', e.detail.data));
+  table.addEventListener('error', (e) =&gt; console.log('Error:', e.detail.error));
+  
+  // Reload data
+  table.reload();
+&lt;/script&gt;</pre>
+              </div>
+            </div>
+
+            <!-- Built-in Formatters -->
+            <h3 class="text-lg font-medium mb-4">Built-in Formatters</h3>
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <div class="p-6 bg-slate-50">
+                <wc-table id="demo-table-formatters" hoverable>
+                  <wc-table-column key="item" label="Item" sortable></wc-table-column>
+                  <wc-table-column key="price" label="Price" format="currency" align="right" sortable></wc-table-column>
+                  <wc-table-column key="quantity" label="Quantity" format="number" align="center"></wc-table-column>
+                  <wc-table-column key="discount" label="Discount" format="percent" align="center"></wc-table-column>
+                  <wc-table-column key="date" label="Date" format="date"></wc-table-column>
+                  <wc-table-column key="inStock" label="In Stock" format="boolean" align="center"></wc-table-column>
+                </wc-table>
+              </div>
+              <div class="border-t border-slate-200 p-4">
+                <pre class="code-block">&lt;!-- Use format attribute for built-in formatters --&gt;
+&lt;wc-table&gt;
+  &lt;wc-table-column key="price" format="currency"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="quantity" format="number"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="discount" format="percent"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="date" format="date"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="time" format="time"&gt;&lt;/wc-table-column&gt;
+  &lt;wc-table-column key="active" format="boolean"&gt;&lt;/wc-table-column&gt;
+&lt;/wc-table&gt;
+
+&lt;!-- Available formats: currency, number, percent, date, datetime, time, boolean --&gt;</pre>
+              </div>
+            </div>
+          </section>
+
         </main>
       </div>
     </div>
@@ -898,6 +1130,199 @@ WcToast.show({
       import { registerAll, WcToast } from "../src/index.js";
 
       registerAll();
+
+      // Wait for custom elements to be fully initialized
+      customElements.whenDefined('wc-table').then(() => {
+        // Use requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(() => {
+          initializeTables();
+        });
+      });
+
+      function initializeTables() {
+        // Demo table data
+        const demoTable = document.getElementById('demo-table');
+        if (demoTable) {
+          const users = [
+            { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'active', avatar: 'JD' },
+            { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Editor', status: 'active', avatar: 'JS' },
+            { id: 3, name: 'Bob Johnson', email: 'bob@example.com', role: 'Viewer', status: 'pending', avatar: 'BJ' },
+            { id: 4, name: 'Alice Brown', email: 'alice@example.com', role: 'Editor', status: 'active', avatar: 'AB' },
+            { id: 5, name: 'Charlie Wilson', email: 'charlie@example.com', role: 'Admin', status: 'inactive', avatar: 'CW' },
+            { id: 6, name: 'Diana Lee', email: 'diana@example.com', role: 'Viewer', status: 'active', avatar: 'DL' },
+            { id: 7, name: 'Edward Kim', email: 'edward@example.com', role: 'Editor', status: 'active', avatar: 'EK' },
+            { id: 8, name: 'Fiona Garcia', email: 'fiona@example.com', role: 'Viewer', status: 'pending', avatar: 'FG' },
+            { id: 9, name: 'George Martinez', email: 'george@example.com', role: 'Admin', status: 'active', avatar: 'GM' },
+            { id: 10, name: 'Helen Wang', email: 'helen@example.com', role: 'Editor', status: 'active', avatar: 'HW' },
+          ];
+
+          const statusBadge = (status) => {
+            const variants = { active: 'success', pending: 'warning', inactive: 'error' };
+            return `<wc-badge variant="${variants[status]}" size="sm">${status.charAt(0).toUpperCase() + status.slice(1)}</wc-badge>`;
+          };
+
+          const roleBadge = (role) => {
+            const variants = { Admin: 'primary', Editor: 'secondary', Viewer: 'outline' };
+            return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${role === 'Admin' ? 'bg-purple-100 text-purple-800' : role === 'Editor' ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-700'}">${role}</span>`;
+          };
+
+          demoTable.data = users.map(u => ({
+            id: u.id,
+            user: `<div class="flex items-center gap-3"><wc-avatar size="sm" initials="${u.avatar}"></wc-avatar><div><div class="font-medium text-slate-900">${u.name}</div></div></div>`,
+            email: `<span class="text-slate-600">${u.email}</span>`,
+            role: roleBadge(u.role),
+            status: statusBadge(u.status),
+            actions: `<div class="flex items-center justify-center gap-1">
+              <wc-button variant="ghost" size="sm">Edit</wc-button>
+              <wc-button variant="ghost" size="sm" style="--wc-button-hover-bg: #fef2f2; --wc-button-hover-color: #dc2626;">Delete</wc-button>
+            </div>`
+          }));
+
+          const deleteBtn = document.getElementById('table-delete-btn');
+          const selectionCount = document.getElementById('table-selection-count');
+          
+          demoTable.addEventListener('selection-change', (e) => {
+            const count = e.detail.selectedIds.length;
+            deleteBtn.disabled = count === 0;
+            selectionCount.textContent = count > 0 ? `${count} row${count > 1 ? 's' : ''} selected` : '';
+          });
+
+          deleteBtn.addEventListener('click', () => {
+            const selected = demoTable.selectedRows;
+            if (selected.length > 0) {
+              WcToast.show({ type: 'success', title: 'Deleted', message: `${selected.length} user(s) deleted successfully.` });
+              demoTable.clearSelection();
+            }
+          });
+
+          document.getElementById('table-export-btn').addEventListener('click', () => {
+            WcToast.show({ type: 'info', title: 'Export', message: 'Exporting data to CSV...' });
+          });
+        }
+
+        // Products table data
+        const productsTable = document.getElementById('demo-table-products');
+        if (productsTable) {
+          const products = [
+            { product: 'MacBook Pro 14"', category: 'Laptops', price: 1999, stock: 23, rating: 4.8 },
+            { product: 'iPhone 15 Pro', category: 'Phones', price: 1199, stock: 156, rating: 4.9 },
+            { product: 'AirPods Pro 2', category: 'Audio', price: 249, stock: 89, rating: 4.7 },
+            { product: 'iPad Air', category: 'Tablets', price: 599, stock: 45, rating: 4.6 },
+            { product: 'Apple Watch Ultra', category: 'Wearables', price: 799, stock: 34, rating: 4.8 },
+            { product: 'Magic Keyboard', category: 'Accessories', price: 299, stock: 67, rating: 4.4 },
+            { product: 'Studio Display', category: 'Monitors', price: 1599, stock: 12, rating: 4.5 },
+            { product: 'Mac Mini M2', category: 'Desktops', price: 599, stock: 78, rating: 4.7 },
+          ];
+
+          const stockBadge = (stock) => {
+            if (stock > 50) return `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">${stock} in stock</span>`;
+            if (stock > 20) return `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">${stock} left</span>`;
+            return `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">Low: ${stock}</span>`;
+          };
+
+          const ratingStars = (rating) => {
+            const full = Math.floor(rating);
+            const stars = '★'.repeat(full) + '☆'.repeat(5 - full);
+            return `<span class="text-amber-500">${stars}</span> <span class="text-slate-500 text-xs">${rating}</span>`;
+          };
+
+          productsTable.data = products.map(p => ({
+            product: `<div class="font-medium text-slate-900">${p.product}</div>`,
+            category: `<span class="text-slate-600">${p.category}</span>`,
+            price: `<span class="font-medium">$${p.price.toLocaleString()}</span>`,
+            stock: stockBadge(p.stock),
+            rating: ratingStars(p.rating)
+          }));
+        }
+
+        // Orders table data
+        const ordersTable = document.getElementById('demo-table-orders');
+        if (ordersTable) {
+          const orders = [
+            { orderId: 'ORD-001', customer: 'John Doe', date: '2026-02-04', total: 1299.00, status: 'completed' },
+            { orderId: 'ORD-002', customer: 'Jane Smith', date: '2026-02-03', total: 549.00, status: 'processing' },
+            { orderId: 'ORD-003', customer: 'Bob Johnson', date: '2026-02-03', total: 2199.00, status: 'completed' },
+            { orderId: 'ORD-004', customer: 'Alice Brown', date: '2026-02-02', total: 899.00, status: 'shipped' },
+            { orderId: 'ORD-005', customer: 'Charlie Wilson', date: '2026-02-01', total: 1599.00, status: 'cancelled' },
+            { orderId: 'ORD-006', customer: 'Diana Lee', date: '2026-01-31', total: 349.00, status: 'completed' },
+          ];
+
+          const orderStatus = (status) => {
+            const config = {
+              completed: { color: 'bg-green-100 text-green-800', icon: '✓' },
+              processing: { color: 'bg-blue-100 text-blue-800', icon: '⟳' },
+              shipped: { color: 'bg-purple-100 text-purple-800', icon: '📦' },
+              cancelled: { color: 'bg-red-100 text-red-800', icon: '✗' },
+            };
+            const c = config[status] || config.processing;
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${c.color}">${c.icon} ${status.charAt(0).toUpperCase() + status.slice(1)}</span>`;
+          };
+
+          ordersTable.data = orders.map(o => ({
+            orderId: `<span class="font-mono text-sm font-medium text-slate-900">${o.orderId}</span>`,
+            customer: o.customer,
+            date: `<span class="text-slate-600">${new Date(o.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>`,
+            total: `<span class="font-medium text-slate-900">$${o.total.toFixed(2)}</span>`,
+            status: orderStatus(o.status)
+          }));
+
+          document.getElementById('table-toggle-loading').addEventListener('click', () => {
+            ordersTable.loading = !ordersTable.loading;
+          });
+        }
+
+        // Simple table with columns attribute
+        const simpleTable = document.getElementById('demo-table-simple');
+        if (simpleTable) {
+          simpleTable.data = [
+            { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
+            { name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
+            { name: 'Bob Johnson', email: 'bob@example.com', role: 'Editor' },
+            { name: 'Alice Brown', email: 'alice@example.com', role: 'User' },
+            { name: 'Charlie Wilson', email: 'charlie@example.com', role: 'Moderator' },
+          ];
+        }
+
+        // Auto columns table
+        const autoTable = document.getElementById('demo-table-auto');
+        if (autoTable) {
+          autoTable.data = [
+            { id: 1, name: 'Alice Chen', department: 'Engineering', salary: 95000 },
+            { id: 2, name: 'Bob Martinez', department: 'Design', salary: 85000 },
+            { id: 3, name: 'Carol White', department: 'Marketing', salary: 75000 },
+            { id: 4, name: 'David Kim', department: 'Engineering', salary: 105000 },
+            { id: 5, name: 'Eva Johnson', department: 'Sales', salary: 80000 },
+          ];
+        }
+
+        // Remote data table
+        const remoteTable = document.getElementById('demo-table-remote');
+        if (remoteTable) {
+          document.getElementById('table-reload-btn').addEventListener('click', () => {
+            remoteTable.reload();
+          });
+
+          remoteTable.addEventListener('load', (e) => {
+            WcToast.show({ type: 'success', title: 'Data loaded', message: `Fetched ${e.detail.data.length} users` });
+          });
+
+          remoteTable.addEventListener('error', (e) => {
+            WcToast.show({ type: 'error', title: 'Error', message: e.detail.error.message });
+          });
+        }
+
+        // Formatters table
+        const formattersTable = document.getElementById('demo-table-formatters');
+        if (formattersTable) {
+          formattersTable.data = [
+            { item: 'MacBook Pro', price: 2499.99, quantity: 12500, discount: 10, date: '2024-02-15', inStock: true },
+            { item: 'iPhone 15 Pro', price: 1199.00, quantity: 45200, discount: 5, date: '2024-01-20', inStock: true },
+            { item: 'AirPods Max', price: 549.00, quantity: 3400, discount: 15, date: '2024-03-01', inStock: false },
+            { item: 'Apple Watch', price: 399.00, quantity: 28900, discount: 0, date: '2024-02-28', inStock: true },
+            { item: 'iPad Pro', price: 1099.00, quantity: 8750, discount: 8, date: '2024-01-10', inStock: false },
+          ];
+        }
+      } // End of initializeTables function
 
       // Toast handlers
       document.getElementById('toast-success').addEventListener('click', () => {

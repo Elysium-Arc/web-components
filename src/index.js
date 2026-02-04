@@ -14,6 +14,7 @@ import { defineWcBadge } from './components/badge.js';
 import { defineWcAlert } from './components/alert.js';
 import { defineWcAvatar } from './components/avatar.js';
 import { defineWcSpinner } from './components/spinner.js';
+import { defineWcTable } from './components/table.js';
 
 export { WcButton } from './components/button.js';
 export {
@@ -35,6 +36,7 @@ export { WcBadge } from './components/badge.js';
 export { WcAlert } from './components/alert.js';
 export { WcAvatar } from './components/avatar.js';
 export { WcSpinner } from './components/spinner.js';
+export { WcTable, WcTableColumn } from './components/table.js';
 
 export function registerAll() {
   defineWcButton();
@@ -53,6 +55,7 @@ export function registerAll() {
   defineWcAlert();
   defineWcAvatar();
   defineWcSpinner();
+  defineWcTable();
 }
 
 export {
@@ -72,4 +75,5 @@ export {
   defineWcAlert,
   defineWcAvatar,
   defineWcSpinner,
+  defineWcTable,
 };
